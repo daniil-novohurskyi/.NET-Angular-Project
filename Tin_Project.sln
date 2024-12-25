@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{152A91F5-B3FE-4940-91A6-7406DA2DB542}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tin_Backend", "Tin_Backend\Tin_Backend.csproj", "{405318E5-F289-4F2C-B370-02AB215F4435}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{80029B97-6293-41D9-8475-85F7B63F0AB3}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Tin_Frontend", "Tin_Frontend\Tin_Frontend.esproj", "{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{405318E5-F289-4F2C-B370-02AB215F4435} = {152A91F5-B3FE-4940-91A6-7406DA2DB542}
+		{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD} = {80029B97-6293-41D9-8475-85F7B63F0AB3}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{405318E5-F289-4F2C-B370-02AB215F4435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{405318E5-F289-4F2C-B370-02AB215F4435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{405318E5-F289-4F2C-B370-02AB215F4435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{405318E5-F289-4F2C-B370-02AB215F4435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A83AB625-FFE1-4F8D-BFE7-1AE4D434E1CD}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
