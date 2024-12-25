@@ -1,0 +1,44 @@
+.nav-section{
+  width: 100%;
+  display: block;
+}
+.banner {
+  height: 50px;
+  background-image: url('/images/banner.jpg');
+  background-repeat: repeat-x;
+  width: 100%;
+  background-size: auto 150%;
+  background-color: rgb(118, 28, 28);
+}
+
+.navigation-title{
+  align-self: center;
+}
+h2{
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-left: 140px;
+}
+
+.user-auth {
+  display: inline-flex;
+  gap: 30px;
+  margin-right: 20px;
+}
+
+a, i {
+  color: rgb(220, 198, 198);
+  margin: 0;
+  padding: 0;
+}
+nav {
+  background-color: rgb(118, 28, 28);
+  padding: 15px;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0;
+  width: -webkit-fill-available;
+  align-items: center;
+}

@@ -1,0 +1,44 @@
+
+:host {
+  flex: 0 0 20%;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section {
+  margin-bottom: 2rem;
+}
+
+.filter-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.filter-section label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.price-values {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.apply-filters-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgb(118, 28, 28);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.apply-filters-btn:hover {
+  background-color: rgb(92, 22, 22);
+}

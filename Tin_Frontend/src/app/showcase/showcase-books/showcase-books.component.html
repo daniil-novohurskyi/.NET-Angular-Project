@@ -1,0 +1,17 @@
+<div class="main-page-books-container">
+    <header>
+      <h1>Available books</h1>
+    </header>
+    <div class="book-list">
+      <div *ngFor="let card of bookCards" >
+      <app-showcase-book-card [bookCard]="card"></app-showcase-book-card>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="pagination">
+    <button class="prev" >Previous</button>
+    <span class="page-info">Page 1 of 4</span>
+    <button class="next">Next</button>
+  </div>

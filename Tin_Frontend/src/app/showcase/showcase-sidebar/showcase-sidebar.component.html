@@ -1,0 +1,17 @@
+  <div class="filter-section">
+    <h3>Genres</h3>
+    <label><input type="checkbox" name="genre" value="fiction"> Fiction</label>
+    <label><input type="checkbox" name="genre" value="fantasy"> Fantasy</label>
+    <label><input type="checkbox" name="genre" value="mystery"> Detective</label>
+    <label><input type="checkbox" name="genre" value="science"> Scientific literature</label>
+  </div>
+
+  <div *ngIf="isBrowser">
+  <nouislider [config]="sliderConfig" [(ngModel)]="sliderModel"></nouislider>
+  </div>
+  <div class="price-values">
+    <span id="price-min">200</span> - <span id="price-max">800</span>
+  </div>
+
+
+  <button class="apply-filters-btn">Применить фильтры</button>
