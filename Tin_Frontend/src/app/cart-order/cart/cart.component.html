@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="container-header">
+    <span><i class="fa fa-shopping-cart left-item"></i> Shopping Cart</span>
+    <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="content">
+    <div class="books-container">
+      <app-books-list-item *ngFor="let bookItem of books" [book]="bookItem"></app-books-list-item>
+    </div>
+    <div class="cart-total">
+      <button class="btn continue-shopping" (click)="OnContinueShopping()">
+        <i class="fa fa-backward" aria-hidden="true"></i> continue shopping
+      </button>
+      <div class="cart-total-price-container">
+        <p><strong>Total: </strong>200 zł</p>
+        <button class="btn-submit" [routerLink] = "['/order']"> Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

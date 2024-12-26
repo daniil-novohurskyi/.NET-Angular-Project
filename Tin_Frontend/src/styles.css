@@ -31,6 +31,29 @@ input:hover, textarea:hover,select:hover{
   transition: transform 0.2s;
 }
 
+.fa-xmark {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.btn-submit {
+  height: max-content;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 3rem;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  background-color: #5cb85c;
+}
+
+.btn.redirect-back {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 
 
 .btn-go-back {
@@ -54,6 +77,8 @@ input:hover, textarea:hover,select:hover{
 .btn-go-back:hover {
   background-color: #1000c0bd;
 }
+
+
 router-outlet:empty{
   display: none;
 }

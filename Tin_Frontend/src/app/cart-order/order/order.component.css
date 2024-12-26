@@ -1,0 +1,120 @@
+.container {
+  width: max-content;
+  margin: 2rem auto;
+  border: 1px solid #b9b8b8;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(178, 34, 34, 0.537);
+}
+
+.container-header {
+  padding: 20px;
+  background-color: #761c1c;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  max-width: 80vw;
+  justify-content: center;
+  padding: 20px;
+}
+
+.content-section, .order-summary {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-summary {
+  align-items: flex-start;
+}
+
+.books-container {
+  max-width: max-content;
+  max-height: 430px;
+  margin: 0 0 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent;
+  position: relative;
+  align-self: flex-start;
+}
+
+.content-section h2, .order-summary h2 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  max-width: 100%;
+}
+
+form label {
+  display: block;
+  color: #555;
+  font-size: 14px;
+}
+
+.order-total-price-container {
+  background-color: #148a3052;
+  padding: 0.8rem 1rem;
+  border: 1px solid #cbcbcb;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  align-self: flex-end;
+  font-size: 1.2rem;
+}
+
+.order-total-price-container p {
+  margin: 0;
+}
+
+.btn-submit {
+  align-self: flex-end;
+  width: 100%;
+}
+/* Same styles as before */
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+input.ng-touched.ng-invalid {
+  border-color: red;
+}

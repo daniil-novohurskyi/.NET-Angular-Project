@@ -3,11 +3,7 @@
       <h1>Available books</h1>
     </header>
     <div class="book-list">
-      <div *ngFor="let card of bookCards" >
-      <app-showcase-book-card [bookCard]="card"></app-showcase-book-card>
-
-      </div>
-
+      <app-showcase-book-card *ngFor="let card of bookCards" [bookCard]="card"></app-showcase-book-card>
     </div>
   </div>
   <div class="pagination">
