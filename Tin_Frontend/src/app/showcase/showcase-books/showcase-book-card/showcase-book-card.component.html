@@ -1,6 +1,6 @@
-<div class="book-card" (click)="OnClick()">
+<a class="book-card" [routerLink]="[this.bookCard.id]">
   <img src="{{this.bookCard.imageUrl}}"
        alt="Complete Works of William Shakespeare">
   <h3 class="book-card-title">{{this.bookCard.title}}</h3>
   <p class="book-card-price">{{ this.bookCard.price }} zł</p>
-</div>
+</a>

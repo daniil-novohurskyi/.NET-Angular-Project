@@ -4,6 +4,8 @@
   align-items: center;
   gap:1.5rem;
   justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
 
   flex-basis: 20%;
   background-color: #fff;

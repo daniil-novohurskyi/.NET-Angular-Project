@@ -1,0 +1,44 @@
+<form [formGroup]="logRegForm" (ngSubmit)="onSubmit()" id="logreg-form" novalidate>
+  <h1>Sign In</h1>
+  <div class="input-section">
+    <input
+      id="emailInput"
+      placeholder="Email..."
+      type="email"
+      formControlName="email"
+      [class.border-error]="logRegForm.get('email')?.invalid && logRegForm.get('email')?.touched"
+    />
+    <span id="emailError" class="text-error" *ngIf="logRegForm.get('email')?.invalid && logRegForm.get('email')?.touched">
+      Please enter a valid email.
+    </span>
+  </div>
+  <div class="input-section">
+    <input
+      id="passwordInput"
+      placeholder="Password..."
+      [type]="passwordVisible ? 'text' : 'password'"
+      formControlName="password"
+      [class.border-error]="logRegForm.get('password')?.invalid && logRegForm.get('password')?.touched"
+    />
+    <i
+      id="togglePassword"
+      (click)="togglePasswordVisibility()"
+      class="fa"
+      [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"
+    ></i>
+    <span id="passwordError" class="text-error" *ngIf="logRegForm.get('password')?.invalid && logRegForm.get('password')?.touched">
+      Password is required.
+    </span>
+  </div>
+  <div class="wrapper">
+    <a class="forgot-password">Forgot your password?</a>
+    <span id="summaryError" class="text-error" *ngIf="formSubmitted && logRegForm.invalid">
+      Please fix the errors above.
+    </span>
+  </div>
+  <div class="buttons">
+<!--    [disabled]="logRegForm.invalid"-->
+    <button type="submit" >Log in</button>
+    <button class="regBtn" type="button" (click)="onRegister()">Register</button>
+  </div>
+</form>

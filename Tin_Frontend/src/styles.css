@@ -9,6 +9,30 @@ body{
   height: 100vh;
 }
 
+input[type= "text"],
+input[type= "email"],
+input[type= "password"],
+input[type= "file"],
+input[type= "tel"],
+input[type= "date"], textarea, select{
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px gray;
+  transition: transform 0.2s;
+}
+
+input:hover, textarea:hover,select:hover{
+  transform: scale(1.01);
+  transition: transform 0.2s;
+}
+
+
+
 .btn-go-back {
   height: max-content;
   width: 100%;
@@ -29,4 +53,7 @@ body{
 
 .btn-go-back:hover {
   background-color: #1000c0bd;
+}
+router-outlet:empty{
+  display: none;
 }
