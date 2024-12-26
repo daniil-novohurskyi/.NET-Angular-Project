@@ -11,7 +11,10 @@ import {BookCardModel} from './book-card.model';
 export class ShowcaseBookCardComponent {
   @Input() public bookCard!: BookCardModel;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
+  OnClick() {
+   this.router.navigate(['']);
+  }
 }

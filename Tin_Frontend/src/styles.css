@@ -8,3 +8,25 @@ body{
   align-items: center;
   height: 100vh;
 }
+
+.btn-go-back {
+  height: max-content;
+  width: 100%;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 3.5rem;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color 0.4s ease;
+  background-color: #1500ffbd;
+
+  align-self: center;
+
+}
+
+.btn-go-back:hover {
+  background-color: #1000c0bd;
+}
