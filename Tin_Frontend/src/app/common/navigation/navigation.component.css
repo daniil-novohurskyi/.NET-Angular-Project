@@ -28,11 +28,27 @@ h2{
   margin-right: 20px;
 }
 
+.sign-in:hover {
+  color: #a8a8a8;
+}
+
 a, i {
-  color: rgb(220, 198, 198);
+  color:white;
   margin: 0;
   padding: 0;
+  text-decoration: none;
 }
+
+nav a, nav i {
+  text-decoration: none; /* Убираем подчеркивание */
+  transition: color 0.3s ease; /* Плавный переход цвета */
+}
+
+nav a:hover, nav a:hover i {
+  color: #afafaf; /* Серо-темный цвет при наведении */
+}
+
+
 nav {
   background-color: rgb(118, 28, 28);
   padding: 15px;

@@ -4,6 +4,7 @@ import {ShowcaseBookComponent} from './showcase/showcase-book/showcase-book.comp
 import {LogRegComponent} from './authentication/log-reg/log-reg.component';
 import {CartComponent} from './cart-order/cart/cart.component';
 import {OrderComponent} from './cart-order/order/order.component';
+import {UserProfileComponent} from './user/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -31,5 +32,9 @@ export const routes: Routes = [
   {
     path: 'order',
     component: OrderComponent
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent
   }
 ];

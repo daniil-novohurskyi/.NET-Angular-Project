@@ -34,7 +34,15 @@ input:hover, textarea:hover,select:hover{
 .fa-xmark {
   color: white;
   font-size: 1.2rem;
+  transition: color 0.2s ease;
+  cursor: pointer;
 }
+.fa-xmark:hover {
+  color: #afafaf;
+
+}
+
+
 
 .btn-submit {
   height: max-content;
@@ -51,10 +59,10 @@ input:hover, textarea:hover,select:hover{
 .btn.redirect-back {
   background-color: transparent;
   border: none;
-  cursor: pointer;
+  cursor: none;
+  padding: 0;
+  margin: auto 0.2rem;
 }
-
-
 
 .btn-go-back {
   height: max-content;

@@ -1,0 +1,11 @@
+  <div class="order-details">
+    <div class="order-details-header">
+      <span class="order-id">Order #{{this.orderItem.orderId}}</span>
+    </div>
+    <div class="order-details-data">
+      <span>Date: {{ this.orderItem.date }}</span>
+      <span>Total: ${{ this.orderItem.total }}</span>
+    </div>
+  </div>
+  <div class="order-status" [ngClass]='this.orderItem.status.toLocaleLowerCase()'>{{ this.orderItem.status }}</div>
+

@@ -1,0 +1,38 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-height: max-content;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(178, 34, 34, 0.537);
+}
+
+h1 {
+  text-align: left;
+  color: #333;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+p {
+  margin: 5px 0;
+  color: #555;
+  white-space: nowrap;
+}
+
+.edit-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
