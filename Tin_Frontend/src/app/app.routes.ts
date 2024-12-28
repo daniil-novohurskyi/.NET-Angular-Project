@@ -5,6 +5,7 @@ import {LogRegComponent} from './authentication/log-reg/log-reg.component';
 import {CartComponent} from './cart-order/cart/cart.component';
 import {OrderComponent} from './cart-order/order/order.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
+import {UserEditComponent} from './user/user-edit/user-edit.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,12 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'profile/edit',
+    component:UserEditComponent
   }
+
 ];
