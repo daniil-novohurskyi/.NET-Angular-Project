@@ -6,7 +6,8 @@ import {CartComponent} from './cart-order/cart/cart.component';
 import {OrderComponent} from './cart-order/order/order.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {UserEditComponent} from './user/user-edit/user-edit.component';
-import {UsersInfoTableComponent} from './admin/users/users-info-table/users-info-table.component';
+import {UsersInfoComponent} from './admin/users/users-info/users-info.component';
+import {BooksInfoComponent} from './admin/books/books-info/books-info.component';
 
 export const routes: Routes = [
   {
@@ -46,7 +47,11 @@ export const routes: Routes = [
   },
   {
     path: 'admin/users',
-    component:UsersInfoTableComponent
+    component:UsersInfoComponent
+  },
+  {
+    path: 'admin/books',
+    component:BooksInfoComponent
   }
 
 ];

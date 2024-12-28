@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import {PaginationComponent} from '../../../common/pagination/pagination.component';
 
 @Component({
-  selector: 'app-users-info-table',
+  selector: 'app-users-info',
   standalone: true,
   imports: [
     PaginationComponent
   ],
-  templateUrl: './users-info-table.component.html',
-  styleUrl: './users-info-table.component.css'
+  templateUrl: './users-info.component.html',
+  styleUrl: './users-info.component.css'
 })
-export class UsersInfoTableComponent {
+export class UsersInfoComponent {
 
 }
