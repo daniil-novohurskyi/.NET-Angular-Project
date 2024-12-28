@@ -6,8 +6,14 @@ import {CartComponent} from './cart-order/cart/cart.component';
 import {OrderComponent} from './cart-order/order/order.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {UserEditComponent} from './user/user-edit/user-edit.component';
+import {UsersInfoTableComponent} from './admin/users/users-info-table/users-info-table.component';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/showcase',
+    pathMatch: 'full'
+  },
   {
     path: 'showcase',
     component: ShowcaseComponent,
@@ -20,11 +26,6 @@ export const routes: Routes = [
   {
     path:'login',
     component:LogRegComponent
-  },
-  {
-    path: '',
-    redirectTo: '/showcase',
-    pathMatch: 'full'
   },
   {
     path: 'cart',
@@ -42,6 +43,10 @@ export const routes: Routes = [
   {
     path: 'profile/edit',
     component:UserEditComponent
+  },
+  {
+    path: 'admin/users',
+    component:UsersInfoTableComponent
   }
 
 ];
