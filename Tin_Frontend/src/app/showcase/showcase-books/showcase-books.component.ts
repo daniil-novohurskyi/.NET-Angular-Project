@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import {NgForOf} from '@angular/common';
 import {ShowcaseBookCardComponent} from './showcase-book-card/showcase-book-card.component';
 import {BookCardModel} from './showcase-book-card/book-card.model';
+import {PaginationComponent} from '../../common/pagination/pagination.component';
 
 @Component({
   selector: 'app-showcase-books',
   standalone: true,
   imports: [
     NgForOf,
-    ShowcaseBookCardComponent
+    ShowcaseBookCardComponent,
+    PaginationComponent
   ],
   templateUrl: './showcase-books.component.html',
   styleUrl: './showcase-books.component.css'

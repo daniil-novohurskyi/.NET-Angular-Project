@@ -13,31 +13,3 @@ h1{
   color: rgb(174, 57, 57);
   text-shadow: 2px 2px #cdc4c4;
 }
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.pagination button {
-  padding: 8px 12px;
-  background-color: rgb(175, 43, 43);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.pagination button:hover {
-  background-color: rgb(118, 28, 28);
-}
-
-.page-info {
-  align-self: center;
-  font-size: 16px;
-  color: #333;
-}
