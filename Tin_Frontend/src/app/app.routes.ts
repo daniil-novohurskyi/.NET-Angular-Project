@@ -8,6 +8,7 @@ import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {UserEditComponent} from './user/user-edit/user-edit.component';
 import {UsersInfoComponent} from './admin/users/users-info/users-info.component';
 import {BooksInfoComponent} from './admin/books/books-info/books-info.component';
+import {OrdersInfoComponent} from './admin/orders/orders-info/orders-info.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,10 @@ export const routes: Routes = [
   {
     path: 'admin/books',
     component:BooksInfoComponent
+  },
+  {
+    path: 'admin/orders',
+    component:OrdersInfoComponent
   }
 
 ];

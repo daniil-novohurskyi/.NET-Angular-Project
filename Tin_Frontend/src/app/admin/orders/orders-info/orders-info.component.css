@@ -1,0 +1,85 @@
+:host {
+  padding: 20px 20px 10px 20px;
+  width: max-content;
+  margin: 2rem auto;
+  border: 1px solid #b9b8b8;
+  border-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(178, 34, 34, 0.537);
+}
+
+.table-header {
+  display: flex
+;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+}
+.table-header h1 {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #b4b4b499;
+}
+tbody tr:nth-child(even) {
+  background-color: rgba(189, 189, 189, 0.18);
+}
+tbody tr:hover {
+  background-color: #fdebee;
+}
+th, td {
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 7px 20px;
+}
+
+
+.actions {
+  display: flex
+;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+.actions button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.details-button{
+  margin-top: 5px;
+  color: #007bff;
+}
+
+.details-button:hover{
+  color: #0167d3;
+
+}
+
+.edit-button {
+  color: #4a9b4a;
+}
+.edit-button:hover {
+  color: #377537;
+}
+
+
+.delete-button {
+  color: #de4050;
+}
+
+.delete-button:hover {
+  color: #b93643;
+}
