@@ -1,0 +1,78 @@
+<div class="content">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="column">
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input type="text" id="title" formControlName="title" placeholder="Enter book title" />
+          <span id="titleError" class="text-error" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+            • Please enter a valid title.
+          </span>
+        </div>
+      </div>
+      <div class="column">
+        <div class="form-group">
+          <label for="genre">Genre:</label>
+          <input type="text" id="genre" formControlName="genre" placeholder="Enter book genre" />
+          <span id="genreError" class="text-error" *ngIf="bookForm.get('genre')?.invalid && bookForm.get('genre')?.touched">
+            • Please enter a valid genre.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input type="text" id="author" formControlName="author" placeholder="Enter author's name" />
+          <span id="authorError" class="text-error" *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+            • Please enter a valid author name.
+          </span>
+        </div>
+      </div>
+      <div class="column">
+        <div class="form-group">
+          <label for="publishingYear">Publishing Year:</label>
+          <input type="text" id="publishingYear" formControlName="publishingYear" placeholder="Enter publishing year" />
+          <span id="yearError" class="text-error" *ngIf="bookForm.get('publishingYear')?.invalid && bookForm.get('publishingYear')?.touched">
+            • Please enter a valid publishing year.
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Short Description:</label>
+      <textarea rows="8" id="description" formControlName="description" placeholder="Enter a short description"></textarea>
+      <span id="descriptionError" class="text-error" *ngIf="bookForm.get('description')?.invalid && bookForm.get('description')?.touched">
+        • Please provide a short description.
+      </span>
+    </div>
+    <div class="row">
+      <div class="column">
+        <div class="form-group">
+          <label for="price">Price (in PLN):</label>
+          <input type="text" id="price" formControlName="price" placeholder="Enter price" />
+          <span id="priceError" class="text-error" *ngIf="bookForm.get('price')?.invalid && bookForm.get('price')?.touched">
+            • Please enter a valid price.
+          </span>
+        </div>
+      </div>
+      <div class="column">
+        <div class="form-group">
+          <label for="uploadCover">Cover Image:</label>
+          <input type="file" id="uploadCover" (change)="onFileChange($event)" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <button class="btn-go-back">Go back</button>
+      </div>
+      <div class="column">
+        <button type="submit" class="btn-submit" [disabled]="bookForm.invalid">
+          {{mode === 'update' ? 'Update Book': 'Add Book'}}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

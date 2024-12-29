@@ -7,7 +7,7 @@ import {
 } from '../../../user/user-profile/user-profile-order-history/user-profile-order-history.component';
 
 @Component({
-  selector: 'app-details',
+  selector: 'app-book-details',
   standalone: true,
   imports: [
     UserProfileOrderHistoryComponent

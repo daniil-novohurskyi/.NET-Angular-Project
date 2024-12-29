@@ -31,6 +31,25 @@ input:hover, textarea:hover,select:hover{
   transition: transform 0.2s;
 }
 
+.row {
+  display: flex
+;
+  gap: 10px;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  max-width: 100%;
+}
+
+label {
+  white-space: nowrap;
+}
+
 .fa-xmark {
   color: white;
   font-size: 1.2rem;
@@ -88,6 +107,13 @@ input:hover, textarea:hover,select:hover{
 
 .btn-go-back:hover {
   background-color: #1000c0bd;
+}
+
+.text-error {
+  margin-top: 5px;
+  color: red;
+  font-size: x-small;
+  display: block;
 }
 
 

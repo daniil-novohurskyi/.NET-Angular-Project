@@ -65,20 +65,7 @@
   flex-direction: column;
   gap: 1.5rem;
 }
-.row {
-  display: flex
-;
-  gap: 10px;
-  width: 100%;
-}
-.column {
-  display: flex
-;
-  flex-direction: column;
-  gap: 3px;
-  flex: 1;
-  max-width: 100%;
-}
+
 .btn-go-back {
   align-self: flex-start;
 }

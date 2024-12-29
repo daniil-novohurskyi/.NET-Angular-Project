@@ -9,7 +9,8 @@ import {UserEditComponent} from './user/user-edit/user-edit.component';
 import {UsersInfoComponent} from './admin/users/users-info/users-info.component';
 import {BooksInfoComponent} from './admin/books/books-info/books-info.component';
 import {OrdersInfoComponent} from './admin/orders/orders-info/orders-info.component';
-import {BookDetailsComponent} from './admin/books/details/book-details.component';
+import {BookDetailsComponent} from './admin/books/book-details/book-details.component';
+import {BookUpsertComponent} from './admin/books/book-upsert/book-upsert.component';
 
 export const routes: Routes = [
   {
@@ -56,8 +57,16 @@ export const routes: Routes = [
     component:BooksInfoComponent
   },
   {
+    path: 'admin/books/new',
+    component:BookUpsertComponent
+  },
+  {
     path: 'admin/books/:id',
     component:BookDetailsComponent
+  },
+  {
+    path: 'admin/books/:id/edit',
+    component:BookUpsertComponent
   },
   {
     path: 'admin/orders',
