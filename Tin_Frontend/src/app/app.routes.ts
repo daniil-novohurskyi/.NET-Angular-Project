@@ -13,6 +13,7 @@ import {BookDetailsComponent} from './admin/books/book-details/book-details.comp
 import {BookUpsertComponent} from './admin/books/book-upsert/book-upsert.component';
 import {OrderDetailsComponent} from './admin/orders/order-details/order-details.component';
 import {OrderUpsertComponent} from './admin/orders/order-upsert/order-upsert.component';
+import {UserUpsertComponent} from './admin/users/user-upsert/user-upsert.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,19 @@ export const routes: Routes = [
     component:UsersInfoComponent
   },
   {
+    path: 'admin/users/new',
+    component:UserUpsertComponent
+  },
+  {
+    path: 'admin/users/:id',
+    component: UserProfileComponent
+  },
+  {
+    path: 'admin/users/:id/edit',
+    component: UserUpsertComponent
+
+  },
+  {
     path: 'admin/books',
     component:BooksInfoComponent
   },
@@ -75,12 +89,18 @@ export const routes: Routes = [
     component:OrdersInfoComponent
   },
   {
+    path: 'admin/orders/new',
+    component:OrderUpsertComponent
+  },
+  {
     path: 'admin/orders/:id',
     component:OrderDetailsComponent
   },
   {
     path: 'admin/orders/:id/edit',
     component:OrderUpsertComponent
-  }
+  },
+
+
 
 ];

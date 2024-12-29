@@ -1,0 +1,116 @@
+<div class="container-header">
+  <span><i class="fa-solid fa-circle-info"></i> Personal Info</span>
+  <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="content">
+  <div class="content-section">
+    <h2>Edit Personal Information</h2>
+    <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="column">
+          <label for="role">Role:</label>
+          <select id="role" formControlName="role" required>
+            <option value="client">Client</option>
+            <option value="admin">Admin</option>
+          </select>
+          <div *ngIf="personalInfoForm.get('role')?.invalid && personalInfoForm.get('role')?.touched" class="error">
+            Role is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="name">Name:</label>
+          <input type="text" id="name" formControlName="name" required />
+          <div *ngIf="personalInfoForm.get('name')?.invalid && personalInfoForm.get('name')?.touched" class="error">
+            Name must be at least 3 characters long.
+          </div>
+        </div>
+        <div class="column">
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" formControlName="phone" required />
+          <div *ngIf="personalInfoForm.get('phone')?.invalid && personalInfoForm.get('phone')?.touched" class="error">
+            Enter a valid phone number.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="city">City:</label>
+          <input type="text" id="city" formControlName="city" required />
+          <div *ngIf="personalInfoForm.get('city')?.invalid && personalInfoForm.get('city')?.touched" class="error">
+            City is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="address">Street Address:</label>
+          <input type="text" id="address" formControlName="address" required />
+          <div *ngIf="personalInfoForm.get('address')?.invalid && personalInfoForm.get('address')?.touched" class="error">
+            Address is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="unit">Unit:</label>
+          <input type="text" id="unit" formControlName="unit" required />
+          <div *ngIf="personalInfoForm.get('unit')?.invalid && personalInfoForm.get('unit')?.touched" class="error">
+            Unit is required.
+          </div>
+        </div>
+        <div class="column">
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" id="postalCode" formControlName="postalCode" required />
+          <div *ngIf="personalInfoForm.get('postalCode')?.invalid && personalInfoForm.get('postalCode')?.touched" class="error">
+            Postal Code must be in the format XX-XXX.
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="content-section">
+    <h2>Edit Account Credentials</h2>
+    <form [formGroup]="accountForm">
+      <div class="row">
+        <div class="column">
+          <label for="email">Email:</label>
+          <input type="email" id="email" formControlName="email" required />
+          <div *ngIf="accountForm.get('email')?.invalid && accountForm.get('email')?.touched" class="error">
+            Enter a valid email address.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="password">New Password:</label>
+          <input type="password" id="password" formControlName="password" required />
+          <div *ngIf="accountForm.get('password')?.invalid && accountForm.get('password')?.touched" class="error">
+            Password must be at least 8 characters long.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" formControlName="confirmPassword" required />
+          <div *ngIf="accountForm.get('confirmPassword')?.invalid && accountForm.get('confirmPassword')?.touched" class="error">
+            Passwords must match.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn-submit" [disabled]="personalInfoForm.invalid && accountForm.invalid" (click)="onSubmit()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+

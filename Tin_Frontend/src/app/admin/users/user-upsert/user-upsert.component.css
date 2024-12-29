@@ -1,0 +1,55 @@
+:host {
+    width: max-content;
+    margin: 2rem auto;
+    border: 1px solid #b9b8b8;
+    border-radius: 15px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(178, 34, 34, 0.537);
+}
+.container-header {
+  padding: 20px;
+  background-color: #761c1c;
+  display: flex
+;
+  color: white;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.content {
+  display: flex
+;
+  flex-direction: row;
+  gap: 80px;
+  max-width: 80vw;
+  justify-content: center;
+  padding: 20px;
+}
+
+.content-section {
+  width: 50%;
+  height: auto;
+  display: flex
+;
+  flex-direction: column;
+}
+
+form {
+  display: flex
+;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+.btn-submit{
+  width: 100%;
+  margin-top: 1.2rem;
+}
