@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { BookItemModel } from '../books-list-item/book-item.model';
-import { BooksListItemComponent } from '../books-list-item/books-list-item.component';
 import {NgForOf, NgIf} from '@angular/common';
+import {OrderListItemComponent} from './order-list-item/order-list-item.component';
+import {OrderListItemModel} from './order-list-item/order-list-item.model';
 
 @Component({
   selector: 'app-order',
   standalone: true,
   imports: [
-    BooksListItemComponent,
     NgForOf,
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    OrderListItemComponent
   ],
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
@@ -19,7 +19,7 @@ import {NgForOf, NgIf} from '@angular/common';
 export class OrderComponent {
   orderForm: FormGroup;
 
-  protected books: BookItemModel[] = [
+  protected books: OrderListItemModel[] = [
     {
       imageSrc: "/public/images/books_titles/cover-books-design-illustrations.jpg",
       title: "Patchwork - Wojciech Garula",

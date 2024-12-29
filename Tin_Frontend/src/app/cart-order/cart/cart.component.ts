@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {BookItemModel} from '../books-list-item/book-item.model';
-import {BooksListItemComponent} from '../books-list-item/books-list-item.component';
+import {CartListItemModel} from './cart-list-item/cart-list-item.model';
+import {CartListItemComponent} from './cart-list-item/cart-list-item.component';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
@@ -8,7 +8,7 @@ import {RouterLink} from '@angular/router';
   selector: 'app-cart',
   standalone: true,
   imports: [
-    BooksListItemComponent,
+    CartListItemComponent,
     NgForOf,
     RouterLink
   ],
@@ -16,7 +16,7 @@ import {RouterLink} from '@angular/router';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  protected books: BookItemModel[] =  [
+  protected books: CartListItemModel[] =  [
     {
       imageSrc: "/public/images/books_titles/cover-books-design-illustrations.jpg",
       title: "Patchwork - Wojciech Garula",

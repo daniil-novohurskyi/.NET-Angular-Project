@@ -5,7 +5,7 @@
   </div>
   <div class="content">
     <div class="books-container">
-      <app-books-list-item *ngFor="let bookItem of books" [book]="bookItem"></app-books-list-item>
+      <app-cart-list-item *ngFor="let bookItem of books" [book]="bookItem"></app-cart-list-item>
     </div>
     <div class="cart-total">
       <button class="btn continue-shopping" (click)="OnContinueShopping()">
