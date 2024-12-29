@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="container-header">
+    <span><i class="fa-solid fa-pen-to-square"></i> Update Order</span>
+    <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <div class="content">
+    <div class="content-section">
+      <h2>Client:</h2>
+      <div class="row">
+        <div class="column">
+          <label for="email">Email:</label>
+          <input type="email" value="john.doe@example.com" id="email" disabled>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <label for="clientName">Name:</label>
+          <input type="text" value="John Doe" id="clientName" disabled>
+        </div>
+      </div>
+
+      <h2>Delivery Details:</h2>
+
+        <div class="row">
+          <div class="column">
+            <label for="deliveryName">Name:</label>
+            <input type="text" value="John Doe" id="deliveryName" disabled>
+          </div>
+          <div class="column">
+            <label for="phone">Phone:</label>
+            <input type="tel" value="+1 234 567 890" id="phone" disabled>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <label for="city">City:</label>
+            <input type="text" value="San Francisco" id="city" disabled>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <label for="address">Street Address:</label>
+            <input type="text" value="123 Main St, Springfield" id="address" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <label for="unit">Unit:</label>
+            <input type="text" value="20" id="unit" disabled>
+          </div>
+          <div class="column">
+            <label for="postalCode">Postal Code:</label>
+            <input type="text" value="02-543" id="postalCode" disabled>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="btn-go-back"><i class="fa-solid fa-arrow-left"></i>Go back</button>
+
+        </div>
+    </div>
+    <div class="content-section">
+      <h2>Order Details:</h2>
+
+      <div class="order-details">
+
+        <div class="row">
+          <div class="column">
+            <label for="orderID">ID:</label>
+            <input type="text" id="orderID" name="orderID" value="ORD123012" disabled>
+          </div>
+          <div class="column">
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date" value="2022-01-01" disabled>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <label for="orderStatus">Status:</label>
+            <select id="orderStatus" name="orderStatus" disabled>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="returned">Returned</option>
+            </select>
+          </div>
+          <div class="column">
+            <label for="orderTotalPrice">Total Price:</label>
+            <input type="text" id="orderTotalPrice" name="orderTotalPrice" value="120 $" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="books-container">
+        <app-order-list-item *ngFor="let item of books"  [orderItem]="item"></app-order-list-item>
+      </div>
+    </div>
+  </div>
+
+</div>

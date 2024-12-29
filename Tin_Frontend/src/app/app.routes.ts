@@ -11,6 +11,7 @@ import {BooksInfoComponent} from './admin/books/books-info/books-info.component'
 import {OrdersInfoComponent} from './admin/orders/orders-info/orders-info.component';
 import {BookDetailsComponent} from './admin/books/book-details/book-details.component';
 import {BookUpsertComponent} from './admin/books/book-upsert/book-upsert.component';
+import {OrderDetailsComponent} from './admin/orders/order-details/order-details.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,10 @@ export const routes: Routes = [
   {
     path: 'admin/orders',
     component:OrdersInfoComponent
+  },
+  {
+    path: 'admin/orders/:id',
+    component:OrderDetailsComponent
   }
 
 ];

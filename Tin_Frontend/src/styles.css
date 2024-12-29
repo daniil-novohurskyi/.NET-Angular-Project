@@ -25,6 +25,9 @@ input[type= "date"], textarea, select{
   box-shadow: 0 1px 1px gray;
   transition: transform 0.2s;
 }
+input[type= "file"]{
+  padding: 7px;
+}
 
 input:hover, textarea:hover,select:hover{
   transform: scale(1.01);
@@ -47,7 +50,13 @@ input:hover, textarea:hover,select:hover{
 }
 
 label {
+  display: block;
+  margin-bottom: 0px;
+  font-weight: bold;
+  color: #5a5a5a;
+  font-size: 0.9rem;
   white-space: nowrap;
+
 }
 
 .fa-xmark {

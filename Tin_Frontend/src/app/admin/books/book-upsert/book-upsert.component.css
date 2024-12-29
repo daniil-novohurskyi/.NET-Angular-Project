@@ -7,6 +7,18 @@
   box-shadow: 0 2px 4px rgba(178, 34, 34, 0.537);
 }
 
+.container-header {
+  padding: 20px;
+  background-color: #761c1c;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 .content {
   display: flex;
   flex-direction: column;
@@ -15,6 +27,8 @@
   max-width: 80vw;
   padding: 20px;
 }
+
+
 
 form {
   display: flex;
@@ -25,18 +39,6 @@ form {
 .form-group {
   margin-bottom: 15px;
   width: 100%;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-form label {
-  display: block;
-  color: #555;
-  font-size: 14px;
 }
 
 .btn-go-back {

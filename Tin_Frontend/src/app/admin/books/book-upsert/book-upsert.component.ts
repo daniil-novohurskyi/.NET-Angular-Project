@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -9,7 +9,8 @@ import {ActivatedRoute} from '@angular/router';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   styleUrls: ['./book-upsert.component.css']
 })

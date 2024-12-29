@@ -1,3 +1,16 @@
+<div class="container-header">
+<span>
+  <i
+    [ngClass]="{
+      'fa-solid': true,
+      'fa-pen-to-square': mode === 'update',
+      'fa-book-open': mode === 'create'
+    }"
+  ></i>
+  {{ mode === 'update' ? 'Update Book' : 'Add Book' }}
+</span>
+  <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+</div>
 <div class="content">
   <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
     <div class="row">
