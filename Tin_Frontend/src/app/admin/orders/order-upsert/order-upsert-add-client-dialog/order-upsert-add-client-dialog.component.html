@@ -1,0 +1,14 @@
+<div class="container-header">
+  <span><i class="fa-solid fa-square-plus"></i> Clients</span>
+  <button class="btn redirect-back" id="btn-exit-modal-client" (click)="onCloseDiaolog()" ><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="modal-content">
+  <div class="row search-bar">
+    <input type="text" id="search-input" placeholder="Search for clients..." onkeyup="filterBooks()">
+    <button class="btn-search" id="search-button">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+  <app-client-list></app-client-list>
+  <app-pagination></app-pagination>
+</div>

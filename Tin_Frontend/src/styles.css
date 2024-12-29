@@ -23,7 +23,7 @@ input[type= "date"], textarea, select{
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 1px 1px gray;
-  transition: transform 0.2s;
+  transition: transform 0.5s;
 }
 input[type= "file"]{
   padding: 7px;
@@ -31,7 +31,7 @@ input[type= "file"]{
 
 input:hover, textarea:hover,select:hover{
   transform: scale(1.01);
-  transition: transform 0.2s;
+  transition: transform 0.5s;
 }
 
 .row {
@@ -51,7 +51,7 @@ input:hover, textarea:hover,select:hover{
 
 label {
   display: block;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   font-weight: bold;
   color: #5a5a5a;
   font-size: 0.9rem;
