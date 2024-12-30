@@ -91,7 +91,7 @@ namespace DataAccess.Repository.Implementations
                 query = query.Include(includeProperty);
             }
 
-            return await query.SingleOrDefaultAsync(e => EF.Property<K>(e, "ID").Equals(id));
+            return await query.SingleOrDefaultAsync(e => EF.Property<K>(e, "Id").Equals(id));
         }
     }
 }

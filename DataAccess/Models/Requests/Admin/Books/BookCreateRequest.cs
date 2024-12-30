@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace DataAccess.Models.Requests;
 
-public class UpdateBookRequest
+public class BookCreateRequest
 {
     public string Author { get; set; }
 
     public string Genre { get; set; }
     
-    public string? Description { get; set; }
+    public string Description { get; set; }
 
     public string Title { get; set; } = null!;
     
@@ -16,5 +16,5 @@ public class UpdateBookRequest
 
     public decimal Price { get; set; }
 
-    public IFormFile? Cover { get; set; } = null!;
+    public IFormFile Cover { get; set; } = null!;
 }

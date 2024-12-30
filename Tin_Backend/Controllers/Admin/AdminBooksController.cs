@@ -70,7 +70,7 @@ public class AdminBooksController : ControllerBase
         var book = await _unitOfWork.BookRepository.GetByIdWithIncludesAsync(id, book => book.Author, book => book.Genre );
         if (book == null)
             return NotFound("book not found");
-        var response = new BookResponse()
+        var response = new BookUpsertResponse()
         {
             Isbn = book.Isbn,
             Title = book.Title,
@@ -85,9 +85,9 @@ public class AdminBooksController : ControllerBase
 
     [HttpPost]
     [Route("new")]
-    public async Task<IActionResult> Create([FromForm] CreateBookRequest createBookRequest)
+    public async Task<IActionResult> Create([FromForm] BookCreateRequest bookCreateRequest)
     {
-        var checkUniqueTitleBook = await _unitOfWork.BookRepository.GetByTitleAsync(createBookRequest.Title);
+        var checkUniqueTitleBook = await _unitOfWork.BookRepository.GetByTitleAsync(bookCreateRequest.Title);
         if (checkUniqueTitleBook != null)
         {
             return BadRequest("Title of book must be unique");
@@ -105,46 +105,46 @@ public class AdminBooksController : ControllerBase
         }
         
         //check that new value of author is in database, if no so we need to add it
-        var bookAuthor = await _unitOfWork.AuthorRepository.GetByNameAsync(createBookRequest.Author);
+        var bookAuthor = await _unitOfWork.AuthorRepository.GetByNameAsync(bookCreateRequest.Author);
         if (bookAuthor == null)
         {
             bookAuthor = new Author()
             {
-                Name = createBookRequest.Author
+                Name = bookCreateRequest.Author
             };
             await _unitOfWork.AuthorRepository.AddAsync(bookAuthor);
         }
         
         //check that new value of genre is in database, if no so we need to add it
-        var bookGenre = await _unitOfWork.GenreRepository.GetByNameAsync(createBookRequest.Genre);
+        var bookGenre = await _unitOfWork.GenreRepository.GetByNameAsync(bookCreateRequest.Genre);
         if (bookGenre == null)
         {
             bookGenre = new Genre()
             {
-                Name = createBookRequest.Genre
+                Name = bookCreateRequest.Genre
             };
             await _unitOfWork.GenreRepository.AddAsync(bookGenre);
         }
-        var filePath = Path.Combine(_env.WebRootPath, "images", createBookRequest.Cover.FileName);
+        var filePath = Path.Combine(_env.WebRootPath, "images", bookCreateRequest.Cover.FileName);
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
-            await createBookRequest.Cover.CopyToAsync(stream);
+            await bookCreateRequest.Cover.CopyToAsync(stream);
         }
 
         var createdBook = new Book()
         {
             Isbn = isbn,
-            Title = createBookRequest.Title,
-            Description = createBookRequest.Description,
+            Title = bookCreateRequest.Title,
+            Description = bookCreateRequest.Description,
             AuthorId = bookAuthor.Id,
             GenreId = bookGenre.Id,
-            Price = createBookRequest.Price,
-            Publishingyear = createBookRequest.Publishingyear,
-            Cover = $"{createBookRequest.Cover.FileName}"
+            Price = bookCreateRequest.Price,
+            Publishingyear = bookCreateRequest.Publishingyear,
+            Cover = $"{bookCreateRequest.Cover.FileName}"
         };
         await _unitOfWork.BookRepository.AddAsync(createdBook);
         await _unitOfWork.SaveChangesAsync();
-        var response = new BookResponse()
+        var response = new BookUpsertResponse()
         {
             Author = bookAuthor.Name,
             Cover = createdBook.Cover,
@@ -159,7 +159,7 @@ public class AdminBooksController : ControllerBase
     
     [HttpPut]
     [Route("{id}/edit")]
-    public async Task<IActionResult> UpdateById(string id,[FromForm] UpdateBookRequest updateBookRequest )
+    public async Task<IActionResult> UpdateById(string id,[FromForm] BookUpdateRequest request )
     {
         bool deleteOldAuthor = false;
         int oldAuthorId = -1,oldGenreId = -1;
@@ -173,20 +173,20 @@ public class AdminBooksController : ControllerBase
                 return NotFound("book not found");
             }
             //check that title is unique
-            var checkUniqueTitleBook = await _unitOfWork.BookRepository.GetByTitleAsync(updateBookRequest.Title);
-            if (checkUniqueTitleBook != null)
+            var checkUniqueTitleBook = await _unitOfWork.BookRepository.GetByTitleAsync(request.Title);
+            if (checkUniqueTitleBook != null && !updatingBook.Title.Equals(request.Title))
             {
                 return BadRequest("Title of book must be unique");
             }
             
             //check that new value of author is in database, if no so we need to add it
-            var updatedAuthor = await _unitOfWork.AuthorRepository.GetByNameAsync(updateBookRequest.Author);
+            var updatedAuthor = await _unitOfWork.AuthorRepository.GetByNameAsync(request.Author);
 
             if (updatedAuthor == null)
             {
                 updatedAuthor = new Author()
                 {
-                    Name = updateBookRequest.Author
+                    Name = request.Author
                 };
                 await _unitOfWork.AuthorRepository.AddAsync(updatedAuthor);
             }
@@ -199,13 +199,13 @@ public class AdminBooksController : ControllerBase
             }
             
             //check that new value of genre is in database, if no so we need to add it
-            var updatedGenre = await _unitOfWork.GenreRepository.GetByNameAsync(updateBookRequest.Genre);
+            var updatedGenre = await _unitOfWork.GenreRepository.GetByNameAsync(request.Genre);
 
             if (updatedGenre == null)
             {
                 updatedGenre = new Genre()
                 {
-                    Name = updateBookRequest.Genre
+                    Name = request.Genre
                 };
                 await _unitOfWork.GenreRepository.AddAsync(updatedGenre);
             }
@@ -217,23 +217,23 @@ public class AdminBooksController : ControllerBase
                 oldGenreId = updatingBook.GenreId;
             }
         
-            if (updateBookRequest.Cover != null)
+            if (request.Cover != null)
             {
-                var filePath = Path.Combine(_env.WebRootPath, "images", updateBookRequest.Cover.FileName);
+                var filePath = Path.Combine(_env.WebRootPath, "images", request.Cover.FileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await updateBookRequest.Cover.CopyToAsync(stream);
+                    await request.Cover.CopyToAsync(stream);
                 }
             }
 
-            updatingBook.Title = updateBookRequest.Title;
-            updatingBook.Description = updateBookRequest.Description;
+            updatingBook.Title = request.Title;
+            updatingBook.Description = request.Description;
             updatingBook.AuthorId = updatedAuthor.Id;
             updatingBook.GenreId = updatedGenre.Id;
-            updatingBook.Price = updateBookRequest.Price;
+            updatingBook.Price = request.Price;
             updatingBook.Publishingyear = updatingBook.Publishingyear;
-            updatingBook.Cover = updateBookRequest.Cover != null
-                ? $"{updateBookRequest.Cover.FileName}"
+            updatingBook.Cover = request.Cover != null
+                ? $"{request.Cover.FileName}"
                 : updatingBook.Cover;
             
             await _unitOfWork.BookRepository.UpdateAsync(updatingBook);
@@ -247,7 +247,7 @@ public class AdminBooksController : ControllerBase
                 await _unitOfWork.GenreRepository.DeleteAsync(oldGenreId);
             }
             await _unitOfWork.SaveChangesAsync();
-            return Ok(updatingBook.Title);
+            return Ok();
         }
         catch (Exception e)
         {

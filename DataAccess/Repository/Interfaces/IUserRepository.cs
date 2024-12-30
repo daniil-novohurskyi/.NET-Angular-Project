@@ -10,5 +10,7 @@ namespace DataAccess.Repository.Interfaces
 {
     public interface IUserRepository:IBaseRepository<User,int>
     {
+        Task<User?> GetByEmailAsync(string email);
+        Task<User?> GetByIdWithOrderItemsAsync(int id);
     }
 }

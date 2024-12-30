@@ -1,6 +1,6 @@
 namespace DataAccess.Models.Responses.Admin;
 
-public class BookResponse
+public class BookUpsertResponse
 {
     public string Isbn { get; set; }
 
