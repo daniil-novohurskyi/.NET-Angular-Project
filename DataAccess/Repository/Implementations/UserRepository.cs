@@ -10,7 +10,7 @@ using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class UserRepository : BaseRepository<User>,IUserRepository
+    public class UserRepository : BaseRepository<User,int>,IUserRepository
     {
         public UserRepository(DbContext context) : base(context)
         {

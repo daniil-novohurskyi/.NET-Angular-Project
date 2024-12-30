@@ -1,5 +1,8 @@
+using System.Data;
 using DataAccess.Context;
 using DataAccess.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DataAccess.Repository.Implementations;
 
@@ -18,12 +21,13 @@ public class UnitOfWork : IUnitOfWork
         UserRepository = new UserRepository(_context);
     }
     
+    
+    
     public async Task SaveChangesAsync()
     {
         await this._context.SaveChangesAsync();
+        await this._context.Database.CommitTransactionAsync();
     }
-    
-    
 
     public IAuthorRepository AuthorRepository { get; }
     public IBookRepository BookRepository { get; }

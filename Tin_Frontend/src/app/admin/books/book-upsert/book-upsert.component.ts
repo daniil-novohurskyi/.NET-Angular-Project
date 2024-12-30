@@ -1,7 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgClass, NgIf} from '@angular/common';
+import {NgClass, NgIf, NgStyle} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
+import {
+  ShowcaseBookCardComponent
+} from '../../../showcase/showcase-books/showcase-book-card/showcase-book-card.component';
 
 @Component({
   selector: 'app-book-upsert',
@@ -10,7 +13,9 @@ import {ActivatedRoute} from '@angular/router';
   imports: [
     ReactiveFormsModule,
     NgIf,
-    NgClass
+    NgClass,
+    ShowcaseBookCardComponent,
+    NgStyle
   ],
   styleUrls: ['./book-upsert.component.css']
 })

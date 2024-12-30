@@ -10,10 +10,11 @@ using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class OrderRepository : BaseRepository<Order>, IOrderRepository
+    public class OrderRepository : BaseRepository<Order,string>, IOrderRepository
     {
         public OrderRepository(DbContext context) : base(context)
         {
+            this.Context.Database.BeginTransactionAsync();
         }
     }
 }

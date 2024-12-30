@@ -50,7 +50,7 @@
 .book-info p {
   margin: 0;
 }
-.book-author, .book-genre, .book-publish-year {
+.book-author, .book-genre, .book-publish-year,.book-price {
   font-size: 1.2rem;
   color: #343a40;
 }

@@ -1,18 +1,20 @@
-namespace DataAccess.Models.Response;
+using Microsoft.AspNetCore.Http;
 
-public class BookDTO
+namespace DataAccess.Models.Requests;
+
+public class CreateBookRequest
 {
-    public int Isbn { get; set; }
-
     public string Author { get; set; }
 
     public string Genre { get; set; }
+    
+    public string Description { get; set; }
 
     public string Title { get; set; } = null!;
-
+    
     public int Publishingyear { get; set; }
 
     public decimal Price { get; set; }
 
-    public string Cover { get; set; } = null!;
+    public IFormFile Cover { get; set; } = null!;
 }

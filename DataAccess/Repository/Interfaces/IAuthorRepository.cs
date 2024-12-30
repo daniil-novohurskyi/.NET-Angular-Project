@@ -8,7 +8,8 @@ using DataAccess.Models.Domain;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IAuthorRepository:IBaseRepository<Author>
+    public interface IAuthorRepository:IBaseRepository<Author,int>
     {
+        Task<Author?> GetByNameAsync(string name);
     }
 }

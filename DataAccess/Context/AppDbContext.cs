@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccess.Models;
 using DataAccess.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +22,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<Genre> Genres { get; set; }
 
-    public virtual DbSet<Models.Domain.Order> Orders { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
@@ -45,7 +44,7 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
-                .HasMaxLength(40)
+                .HasMaxLength(100)
                 .HasColumnName("name");
         });
 
@@ -55,16 +54,19 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("Book");
 
-            entity.Property(e => e.Isbn).HasColumnName("isbn");
+            entity.Property(e => e.Isbn)
+                .HasMaxLength(13)
+                .HasColumnName("isbn");
             entity.Property(e => e.AuthorId).HasColumnName("author_id");
             entity.Property(e => e.Cover)
                 .HasMaxLength(100)
                 .HasColumnName("cover");
+            entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.GenreId).HasColumnName("genre_id");
             entity.Property(e => e.Price)
                 .HasColumnType("money")
                 .HasColumnName("price");
-            entity.Property(e => e.PublishingYear).HasColumnName("publishingyear");
+            entity.Property(e => e.Publishingyear).HasColumnName("publishingyear");
             entity.Property(e => e.Title)
                 .HasMaxLength(100)
                 .HasColumnName("title");
@@ -88,17 +90,19 @@ public partial class AppDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
-                .HasMaxLength(40)
+                .HasMaxLength(100)
                 .HasColumnName("name");
         });
 
-        modelBuilder.Entity<Models.Domain.Order>(entity =>
+        modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Order_pkey");
 
             entity.ToTable("Order");
 
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .HasMaxLength(20)
+                .HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
             entity.Property(e => e.Deliverycity)
                 .HasMaxLength(40)
@@ -119,6 +123,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
+            entity.Property(e => e.Totalprice)
+                .HasColumnType("money")
+                .HasColumnName("totalprice");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
@@ -134,8 +141,12 @@ public partial class AppDbContext : DbContext
             entity.ToTable("OrderItem");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.BookIsbn).HasColumnName("book_isbn");
-            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.BookIsbn)
+                .HasMaxLength(13)
+                .HasColumnName("book_isbn");
+            entity.Property(e => e.OrderId)
+                .HasMaxLength(20)
+                .HasColumnName("order_id");
             entity.Property(e => e.Priceperunit)
                 .HasColumnType("money")
                 .HasColumnName("priceperunit");

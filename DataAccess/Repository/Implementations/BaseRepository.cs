@@ -9,52 +9,69 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T,K> : IBaseRepository<T,K> where T : class
+    where K: IConvertible
     {
-        private readonly DbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbContext Context;
+        protected readonly DbSet<T> DbSet;
 
         public BaseRepository(DbContext context)
         {
-            _context = context;
-            _dbSet = _context.Set<T>();
+            Context = context;
+            DbSet = Context.Set<T>();
         }
 
         public async Task<IEnumerable<T?>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await DbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<IEnumerable<T?>> GetAllWhereAsync(Func<T, bool> predicate)
         {
-            return await _dbSet.FindAsync(id);
+            IEnumerable<T> entities = await DbSet.ToListAsync();
+            var filteredEntities = entities.Where(predicate);
+            return filteredEntities;
+        }
+
+        public async Task<T?> GetByIdAsync(K id)
+        {
+            return await DbSet.FindAsync(id);
+        }
+
+        public async Task DeleteRange(IEnumerable<T> entities)
+        {
+            this.DbSet.RemoveRange(entities);
+            await Context.SaveChangesAsync();
+
         }
 
         public async Task AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await DbSet.AddAsync(entity);
+            Context.Entry(entity).State = EntityState.Added;
+            await Context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
+            DbSet.Update(entity);
+            Context.Entry(entity).State = EntityState.Modified;
+            await Context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(K id)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await DbSet.FindAsync(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
-                await _context.SaveChangesAsync();
+                DbSet.Remove(entity);
+                await Context.SaveChangesAsync();
             }
         }
 
         public async Task<IEnumerable<T?>> GetAllWithIncludesAsync(params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
+            IQueryable<T> query = DbSet;
 
             foreach (var includeProperty in includeProperties)
             {
@@ -64,9 +81,9 @@ namespace DataAccess.Repository.Implementations
             return await query.ToListAsync();
         }
 
-        public async Task<T?> GetByIdWithIncludesAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        virtual public async Task<T?> GetByIdWithIncludesAsync(K id, params Expression<Func<T, object>>[] includeProperties)
         {
-            IQueryable<T> query = _dbSet;
+            IQueryable<T> query = DbSet;
 
             // Apply includes if any are provided
             foreach (var includeProperty in includeProperties)
@@ -74,7 +91,7 @@ namespace DataAccess.Repository.Implementations
                 query = query.Include(includeProperty);
             }
 
-            return await query.SingleOrDefaultAsync(e => EF.Property<int>(e, "ID") == id);
+            return await query.SingleOrDefaultAsync(e => EF.Property<K>(e, "ID").Equals(id));
         }
     }
 }

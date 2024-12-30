@@ -8,7 +8,7 @@ using DataAccess.Models.Domain;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IOrderItemRepository:IBaseRepository<OrderItem>
+    public interface IOrderItemRepository:IBaseRepository<OrderItem,int>
     {
 
     }

@@ -1,12 +1,15 @@
-﻿namespace DataAccess.Models.Domain;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccess.Models.Domain;
 
 public partial class OrderItem
 {
     public int Id { get; set; }
 
-    public int BookIsbn { get; set; }
+    public string BookIsbn { get; set; } = null!;
 
-    public int OrderId { get; set; }
+    public string OrderId { get; set; } = null!;
 
     public decimal Priceperunit { get; set; }
 

@@ -10,7 +10,7 @@ using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class RefreshTokenRepository : BaseRepository<RefreshToken>,IRefreshTokenRepository
+    public class RefreshTokenRepository : BaseRepository<RefreshToken,int>,IRefreshTokenRepository
     {
         public RefreshTokenRepository(DbContext context) : base(context)
         {

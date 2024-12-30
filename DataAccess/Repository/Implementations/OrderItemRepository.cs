@@ -10,7 +10,7 @@ using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class OrderItemRepository : BaseRepository<OrderItem>, IOrderItemRepository
+    public class OrderItemRepository : BaseRepository<OrderItem,int>, IOrderItemRepository
     {
         public OrderItemRepository(DbContext context) : base(context)
         {

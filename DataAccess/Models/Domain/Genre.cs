@@ -1,4 +1,7 @@
-﻿namespace DataAccess.Models.Domain;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccess.Models.Domain;
 
 public partial class Genre
 {

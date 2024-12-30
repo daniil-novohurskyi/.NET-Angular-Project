@@ -8,7 +8,9 @@ using DataAccess.Models.Domain;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IGenreRepository:IBaseRepository<Genre>
+    public interface IGenreRepository:IBaseRepository<Genre,int>
     {
+        Task<Genre?> GetByNameAsync(string name);
+
     }
 }

@@ -10,10 +10,16 @@ using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
 {
-    public class AuthorRepository : BaseRepository<Author>, IAuthorRepository
+    public class AuthorRepository : BaseRepository<Author,int>, IAuthorRepository
     {
         public AuthorRepository(DbContext context) : base(context)
         {
+        }
+
+        public async Task<Author?> GetByNameAsync(string name)
+        {
+            var author = await this.DbSet.FirstOrDefaultAsync(author =>  author.Name.Equals(name));
+            return author;
         }
     }
 }

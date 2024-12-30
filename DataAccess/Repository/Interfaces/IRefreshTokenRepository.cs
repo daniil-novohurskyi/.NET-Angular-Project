@@ -8,7 +8,7 @@ using DataAccess.Models.Domain;
 
 namespace DataAccess.Repository.Interfaces
 {
-    public interface IRefreshTokenRepository:IBaseRepository<RefreshToken>
+    public interface IRefreshTokenRepository:IBaseRepository<RefreshToken,int>
     {
     }
 }

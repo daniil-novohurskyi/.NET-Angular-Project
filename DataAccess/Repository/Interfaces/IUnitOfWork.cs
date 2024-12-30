@@ -1,7 +1,11 @@
+using System.Data;
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace DataAccess.Repository.Interfaces;
 
 public interface IUnitOfWork
 {
+    
     public IAuthorRepository AuthorRepository { get;}
     public IBookRepository BookRepository { get; }
     public IGenreRepository GenreRepository { get; }

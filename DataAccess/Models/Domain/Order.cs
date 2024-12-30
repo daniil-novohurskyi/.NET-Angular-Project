@@ -1,8 +1,11 @@
-﻿namespace DataAccess.Models.Domain;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataAccess.Models.Domain;
 
 public partial class Order
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public int UserId { get; set; }
 
@@ -21,6 +24,8 @@ public partial class Order
     public int Deliveryunit { get; set; }
 
     public string Deliverypostalcode { get; set; } = null!;
+
+    public decimal? Totalprice { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
