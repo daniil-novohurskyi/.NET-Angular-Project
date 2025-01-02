@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Models.Domain;
 
@@ -12,20 +13,28 @@ public partial class Order
     public DateOnly Date { get; set; }
 
     public string Status { get; set; } = null!;
+    
+    [Column("deliveryname")]
+    public string DeliveryName { get; set; } = null!;
 
-    public string Deliveryname { get; set; } = null!;
+    [Column("deliveryphone")]
+    public string DeliveryPhone { get; set; } = null!;
 
-    public string Deliveryphone { get; set; } = null!;
+    [Column("deliverycity")]
 
-    public string Deliverycity { get; set; } = null!;
+    public string DeliveryCity { get; set; } = null!;
 
-    public string Deliverystreet { get; set; } = null!;
+    [Column("deliverystreet")]
+    public string DeliveryStreet { get; set; } = null!;
 
-    public int Deliveryunit { get; set; }
+    [Column("deliveryunit")]
+    public int DeliveryUnit { get; set; }
 
-    public string Deliverypostalcode { get; set; } = null!;
+    [Column("deliverypostalcode")]
+    public string DeliveryPostalCode { get; set; } = null!;
 
-    public decimal? Totalprice { get; set; }
+    [Column("totalprice")]
+    public decimal? TotalPrice { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

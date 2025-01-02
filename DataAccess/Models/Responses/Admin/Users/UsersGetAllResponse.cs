@@ -1,6 +1,6 @@
 namespace DataAccess.Models.Responses.Admin.Users;
 
-public class GetAllUsersResponse
+public class UsersGetAllResponse
 {
     
     public string Name { get; set; } = null!;

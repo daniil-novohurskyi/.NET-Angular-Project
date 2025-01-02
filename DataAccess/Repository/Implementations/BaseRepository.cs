@@ -38,25 +38,26 @@ namespace DataAccess.Repository.Implementations
             return await DbSet.FindAsync(id);
         }
 
-        public async Task DeleteRange(IEnumerable<T> entities)
+        public void RemoveRange(IEnumerable<T> entities)
         {
             this.DbSet.RemoveRange(entities);
-            await Context.SaveChangesAsync();
+        }
 
+        public void AddRange(ICollection<T> entities)
+        {
+            DbSet.AddRange(entities);
         }
 
         public async Task AddAsync(T entity)
         {
             await DbSet.AddAsync(entity);
-            Context.Entry(entity).State = EntityState.Added;
-            await Context.SaveChangesAsync();
+            Context.Entry(entity).State = EntityState.Added; 
         }
 
         public async Task UpdateAsync(T entity)
         {
             DbSet.Update(entity);
             Context.Entry(entity).State = EntityState.Modified;
-            await Context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(K id)
@@ -65,7 +66,6 @@ namespace DataAccess.Repository.Implementations
             if (entity != null)
             {
                 DbSet.Remove(entity);
-                await Context.SaveChangesAsync();
             }
         }
 

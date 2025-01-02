@@ -10,5 +10,7 @@ namespace DataAccess.Repository.Interfaces
 {
     public interface IOrderRepository:IBaseRepository<Order,string>
     {
+        public Task<Order?> GetByIdDetailsAsync(string id);
+        public Task<string> GenerateIdASync();
     }
 }

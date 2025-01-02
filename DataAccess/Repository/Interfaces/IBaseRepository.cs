@@ -14,7 +14,9 @@ namespace DataAccess.Repository.Interfaces
         Task<IEnumerable<T?>> GetAllWhereAsync(Func<T,bool> predicate);
 
         Task<T?> GetByIdAsync(K id);
-        public Task DeleteRange(IEnumerable<T> entities);
+        public void RemoveRange (IEnumerable<T> entities);
+
+        void AddRange(ICollection<T> entities);
 
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);

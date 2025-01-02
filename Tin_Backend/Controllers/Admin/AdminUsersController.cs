@@ -23,7 +23,7 @@ public class AdminUsersController :ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var users = await _unitOfWork.UserRepository.GetAllAsync();
-        var response = users.Select(user => new GetAllUsersResponse()
+        var response = users.Select(user => new UsersGetAllResponse()
         {
             Name = user.Name,
             Role = user.Role,
@@ -50,7 +50,7 @@ public class AdminUsersController :ControllerBase
             Id = order.Id,
             Date = order.Date,
             Status = order.Status,
-            Totalprice = order.Totalprice
+            Totalprice = order.TotalPrice
         }).ToList();
 
         var response = new UserDetailsResponse()
@@ -72,6 +72,8 @@ public class AdminUsersController :ControllerBase
     [Route("{id}/edit")]
     public async Task<IActionResult> GetByIdEdit(int id)
     {
+        await _unitOfWork.BeginTransactionAsync();
+        
         var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
         if (user == null)
         {
@@ -89,6 +91,7 @@ public class AdminUsersController :ControllerBase
             Unit = user.Unit,
             Postalcode = user.Postalcode
         };
+        await _unitOfWork.CommitTransactionAsync();
         return Ok(response);
     }
 
@@ -96,6 +99,7 @@ public class AdminUsersController :ControllerBase
     [Route("new")]
     public async Task<IActionResult> Create([FromBody] UserUpsertRequest request)
     {
+        await _unitOfWork.BeginTransactionAsync();
         //check is email unique
         var checkEmail = await _unitOfWork.UserRepository.GetByEmailAsync(request.Email);
         if (checkEmail != null )
@@ -119,6 +123,7 @@ public class AdminUsersController :ControllerBase
         
         await _unitOfWork.UserRepository.AddAsync(createdUser);
         await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitTransactionAsync();
         
         var response = new UserUpsertResponse()
         {
@@ -138,6 +143,7 @@ public class AdminUsersController :ControllerBase
     [Route("{id}/edit")]
     public async Task<IActionResult> UpdateById(int id, [FromBody] UserUpsertRequest request)
     {
+        await _unitOfWork.BeginTransactionAsync();
         //check if exists
         var userUpdating = await _unitOfWork.UserRepository.GetByIdAsync(id);
         if (userUpdating == null)
@@ -177,6 +183,7 @@ public class AdminUsersController :ControllerBase
             Unit = userUpdating.Unit,
             Postalcode = userUpdating.Postalcode
         };
+        await _unitOfWork.CommitTransactionAsync();
         return Ok(response);
     }
 
@@ -184,6 +191,7 @@ public class AdminUsersController :ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> DeleteById(int id)
     {
+        await _unitOfWork.BeginTransactionAsync();
         var isExisting = await _unitOfWork.UserRepository.GetByIdAsync(id);
         if (isExisting == null)
         {
@@ -193,11 +201,12 @@ public class AdminUsersController :ControllerBase
         var userWithIncludes = await _unitOfWork.UserRepository.GetByIdWithOrderItemsAsync(id);
         foreach (var order in userWithIncludes!.Orders)
         {
-            await _unitOfWork.OrderItemRepository.DeleteRange(order.OrderItems);
+            _unitOfWork.OrderItemRepository.RemoveRange(order.OrderItems);
         }
-        await _unitOfWork.OrderRepository.DeleteRange(userWithIncludes.Orders);
+        _unitOfWork.OrderRepository.RemoveRange(userWithIncludes.Orders);
         await _unitOfWork.UserRepository.DeleteAsync(id);
         await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitTransactionAsync();
         return NoContent();
     }
 }

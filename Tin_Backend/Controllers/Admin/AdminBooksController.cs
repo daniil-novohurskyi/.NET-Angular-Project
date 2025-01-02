@@ -27,7 +27,7 @@ public class AdminBooksController : ControllerBase
     {
         var booksWithIncludes = await _unitOfWork.BookRepository.GetAllWithIncludesAsync(book => book.Author, book => book.Genre);
         var books = booksWithIncludes.Select( book =>
-            new GetAllBooksResponse()
+            new BooksGetAllResponse()
             {
                 Isbn = book!.Isbn,
                 Title = book.Title,
@@ -50,7 +50,7 @@ public class AdminBooksController : ControllerBase
             Id = orderItem.OrderId,
             Date = orderItem.Order.Date,
             Status = orderItem.Order.Status,
-            Totalprice = orderItem.Order.Totalprice
+            Totalprice = orderItem.Order.TotalPrice
         }).ToList();
         var response = new BookDetailsResponse()
         {
@@ -67,6 +67,7 @@ public class AdminBooksController : ControllerBase
     [Route("{id}/edit")]
     public async Task<IActionResult> GetByIdEdit(string id)
     {
+        await _unitOfWork.BeginTransactionAsync();
         var book = await _unitOfWork.BookRepository.GetByIdWithIncludesAsync(id, book => book.Author, book => book.Genre );
         if (book == null)
             return NotFound("book not found");
@@ -80,6 +81,8 @@ public class AdminBooksController : ControllerBase
             Price = book.Price,
             Publishingyear = book.Publishingyear
         };
+        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.BeginTransactionAsync();
         return Ok(response);
     }
 
@@ -87,6 +90,7 @@ public class AdminBooksController : ControllerBase
     [Route("new")]
     public async Task<IActionResult> Create([FromForm] BookCreateRequest bookCreateRequest)
     {
+        await _unitOfWork.BeginTransactionAsync();
         var checkUniqueTitleBook = await _unitOfWork.BookRepository.GetByTitleAsync(bookCreateRequest.Title);
         if (checkUniqueTitleBook != null)
         {
@@ -144,6 +148,7 @@ public class AdminBooksController : ControllerBase
         };
         await _unitOfWork.BookRepository.AddAsync(createdBook);
         await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitTransactionAsync();
         var response = new BookUpsertResponse()
         {
             Author = bookAuthor.Name,
@@ -161,6 +166,7 @@ public class AdminBooksController : ControllerBase
     [Route("{id}/edit")]
     public async Task<IActionResult> UpdateById(string id,[FromForm] BookUpdateRequest request )
     {
+        await _unitOfWork.BeginTransactionAsync();
         bool deleteOldAuthor = false;
         int oldAuthorId = -1,oldGenreId = -1;
         bool deleteOldGenre = false;
@@ -247,6 +253,7 @@ public class AdminBooksController : ControllerBase
                 await _unitOfWork.GenreRepository.DeleteAsync(oldGenreId);
             }
             await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
             return Ok();
         }
         catch (Exception e)
@@ -258,9 +265,10 @@ public class AdminBooksController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("{id}/delete")]
+    [Route("{id}")]
     public async Task<IActionResult> DeleteById(string id)
     {
+        await _unitOfWork.BeginTransactionAsync();
         bool deleteOldAuthor = false;
         int oldAuthorId = -1,oldGenreId = -1;
         bool deleteOldGenre = false;
@@ -272,7 +280,7 @@ public class AdminBooksController : ControllerBase
             return NotFound("book not found");
         }
 
-        await _unitOfWork.OrderItemRepository.DeleteRange(deletingBook.OrderItems);
+        _unitOfWork.OrderItemRepository.RemoveRange(deletingBook.OrderItems);
         
         var booksAuthorCount = await _unitOfWork.BookRepository.GetAllWhereAsync(book => book.AuthorId == deletingBook.AuthorId);
         if (booksAuthorCount.Count() == 1)
@@ -299,6 +307,7 @@ public class AdminBooksController : ControllerBase
             await _unitOfWork.GenreRepository.DeleteAsync(oldGenreId);
         }
         await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitTransactionAsync();
         return NoContent();
     }
     

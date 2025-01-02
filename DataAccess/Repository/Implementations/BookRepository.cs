@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Domain;
+using DataAccess.Models.Responses.Guest;
 using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
@@ -51,6 +52,43 @@ namespace DataAccess.Repository.Implementations
         {
             var book = await this.DbSet.FirstOrDefaultAsync(book =>  book.Title.Equals(title));
             return book;
+        }
+        
+        public async Task<PaginatedResponse> GetPaginatedBooksAsync(int pageNumber, int pageSize)
+        {
+            // Calculate the total number of books
+            var totalCount = await DbSet.CountAsync();
+
+            // Calculate the total number of pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
+            // Get the books for the current page
+            var books = await DbSet
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            var showcaseBooks = books.Select(book => new ShowcaseItemBooksResponse()
+            {
+                Isbn = book.Isbn,
+                CoverUrl = book.Cover,
+                Price = book.Price,
+                Title = book.Title
+            }).ToList();
+
+            // Return the paginated response
+            return new PaginatedResponse
+            {
+                Books = showcaseBooks,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+        }
+
+        public async Task<ICollection<Book>?> GetAllFromIdList(ICollection<string> booksIsbn)
+        {
+            return await DbSet.Where(book => booksIsbn.Contains(book.Isbn)).ToListAsync();
         }
     }
 }

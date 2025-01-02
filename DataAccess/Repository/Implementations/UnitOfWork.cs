@@ -8,6 +8,8 @@ namespace DataAccess.Repository.Implementations;
 
 public class UnitOfWork : IUnitOfWork
 {
+
+    private IDbContextTransaction _transaction;
     private readonly AppDbContext _context;
     public UnitOfWork(AppDbContext context)
     {
@@ -23,12 +25,57 @@ public class UnitOfWork : IUnitOfWork
     
     
     
-    public async Task SaveChangesAsync()
+    public async Task BeginTransactionAsync()
     {
-        await this._context.SaveChangesAsync();
-        await this._context.Database.CommitTransactionAsync();
+        if (_transaction == null)
+        {
+            _transaction = await _context.Database.BeginTransactionAsync();
+        }
     }
 
+    public async Task CommitTransactionAsync()
+    {
+        if (_transaction == null)
+            throw new InvalidOperationException("Transaction has not been started.");
+
+        try
+        {
+            await _transaction.CommitAsync();
+        }
+        catch
+        {
+            await RollbackTransactionAsync();
+            throw;
+        }
+        finally
+        {
+            await DisposeTransactionAsync();
+        }
+    }
+
+    public async Task RollbackTransactionAsync()
+    {
+        if (_transaction != null)
+        {
+            await _transaction.RollbackAsync();
+            await DisposeTransactionAsync();
+        }
+    }
+
+    public async Task DisposeTransactionAsync()
+    {
+        if (_transaction != null)
+        {
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
+    
     public IAuthorRepository AuthorRepository { get; }
     public IBookRepository BookRepository { get; }
     public IGenreRepository GenreRepository { get; }

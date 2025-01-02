@@ -5,7 +5,7 @@ namespace DataAccess.Models.Domain;
 
 public partial class Book
 {
-    public string? Isbn { get; set; } = null!;
+    public string Isbn { get; set; } = null!;
 
     public int AuthorId { get; set; }
 

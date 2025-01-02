@@ -7,7 +7,7 @@ public partial class OrderItem
 {
     public int Id { get; set; }
 
-    public string BookIsbn { get; set; } = null!;
+    public string? BookIsbn { get; set; } = null!;
 
     public string OrderId { get; set; } = null!;
 

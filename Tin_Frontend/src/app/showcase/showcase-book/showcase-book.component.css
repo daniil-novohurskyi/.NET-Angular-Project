@@ -67,6 +67,12 @@
   gap: 1.5rem
 }
 
+.book-price{
+  margin-left: 2rem;
+  align-content: center;
+  font-size: 1.2rem;
+}
+
 .btn-buy {
   background-color: #ffc107;
   color: #343a40;

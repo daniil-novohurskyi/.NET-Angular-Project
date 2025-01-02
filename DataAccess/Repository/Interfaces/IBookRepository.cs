@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Domain;
+using DataAccess.Models.Responses.Guest;
 
 namespace DataAccess.Repository.Interfaces
 {
@@ -14,6 +15,11 @@ namespace DataAccess.Repository.Interfaces
         public Task<Book?> GetByIdAsNoTrackingAsync(string isbn);
         
         Task<Book?> GetByTitleAsync(string title);
+
+        public Task<PaginatedResponse> GetPaginatedBooksAsync(int pageNumber, int pageSize);
+
+        public Task<ICollection<Book>?> GetAllFromIdList(ICollection<string> booksIsbn);
+
 
     }
 }

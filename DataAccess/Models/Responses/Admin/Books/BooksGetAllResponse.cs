@@ -1,6 +1,6 @@
 namespace DataAccess.Models.Responses.Admin;
 
-public class GetAllBooksResponse
+public class BooksGetAllResponse
 {
     public string Isbn { get; set; }= null!;
     public string Title { get; set; } = null!;

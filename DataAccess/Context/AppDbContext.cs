@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DataAccess.Models.Domain;
 using Microsoft.EntityFrameworkCore;
+using Utilities;
 
 namespace DataAccess.Context;
 
@@ -29,6 +30,8 @@ public partial class AppDbContext : DbContext
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+    
+    public virtual DbSet<GenerateOrderId> GenerateOrderId { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -36,6 +39,7 @@ public partial class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<GenerateOrderId>().HasNoKey().ToView(null);
         modelBuilder.Entity<Author>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Author_pkey");
@@ -104,26 +108,26 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("id");
             entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.Deliverycity)
+            entity.Property(e => e.DeliveryCity)
                 .HasMaxLength(40)
                 .HasColumnName("deliverycity");
-            entity.Property(e => e.Deliveryname)
+            entity.Property(e => e.DeliveryName)
                 .HasMaxLength(40)
                 .HasColumnName("deliveryname");
-            entity.Property(e => e.Deliveryphone)
+            entity.Property(e => e.DeliveryPhone)
                 .HasMaxLength(40)
                 .HasColumnName("deliveryphone");
-            entity.Property(e => e.Deliverypostalcode)
+            entity.Property(e => e.DeliveryPostalCode)
                 .HasMaxLength(6)
                 .HasColumnName("deliverypostalcode");
-            entity.Property(e => e.Deliverystreet)
+            entity.Property(e => e.DeliveryStreet)
                 .HasMaxLength(40)
                 .HasColumnName("deliverystreet");
-            entity.Property(e => e.Deliveryunit).HasColumnName("deliveryunit");
+            entity.Property(e => e.DeliveryUnit).HasColumnName("deliveryunit");
             entity.Property(e => e.Status)
                 .HasMaxLength(20)
                 .HasColumnName("status");
-            entity.Property(e => e.Totalprice)
+            entity.Property(e => e.TotalPrice)
                 .HasColumnType("money")
                 .HasColumnName("totalprice");
             entity.Property(e => e.UserId).HasColumnName("user_id");
