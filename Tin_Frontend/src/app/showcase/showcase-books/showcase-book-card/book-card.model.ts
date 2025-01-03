@@ -1,6 +1,6 @@
 export interface BookCardModel {
   id: string;
   title: string;
-  price: number;
-  imageUrl: string;
+  price: number|null;
+  coverUrl: string | null;
 }

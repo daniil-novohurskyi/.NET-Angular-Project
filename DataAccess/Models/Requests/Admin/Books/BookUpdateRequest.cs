@@ -12,7 +12,7 @@ public class BookUpdateRequest
 
     public string Title { get; set; } = null!;
     
-    public int Publishingyear { get; set; }
+    public int PublishingYear { get; set; }
 
     public decimal Price { get; set; }
 

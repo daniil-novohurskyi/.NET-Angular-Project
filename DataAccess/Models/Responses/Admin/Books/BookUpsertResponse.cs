@@ -10,11 +10,10 @@ public class BookUpsertResponse
 
     public string Title { get; set; } = null!;
     
-    public int Publishingyear { get; set; }
+    public int PublishingYear { get; set; }
 
     public decimal Price { get; set; }
 
-    public string Cover { get; set; } = null!;
-
-
+    public string CoverUrl { get; set; } = null!;
+    public string Description { get; set; } = null!;
 }

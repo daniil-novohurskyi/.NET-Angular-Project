@@ -12,6 +12,16 @@ namespace Tin_Backend
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            // Добавляем CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
 
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -31,6 +41,8 @@ namespace Tin_Backend
 
             
             var app = builder.Build();
+            app.UseCors();
+
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

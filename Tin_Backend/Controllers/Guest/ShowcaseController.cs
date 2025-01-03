@@ -44,7 +44,7 @@ public class ShowcaseController:ControllerBase
             Author = book.Author.Name,
             Genre = book.Genre.Name,
             Price = book.Price,
-            PublishingYear = book.Publishingyear,
+            PublishingYear = book.PublishingYear,
             Title = book.Title,
             CoverUrl = book.Cover
         };

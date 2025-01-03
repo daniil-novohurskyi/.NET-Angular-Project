@@ -14,13 +14,11 @@ import {BookUpsertComponent} from './admin/books/book-upsert/book-upsert.compone
 import {OrderDetailsComponent} from './admin/orders/order-details/order-details.component';
 import {OrderUpsertComponent} from './admin/orders/order-upsert/order-upsert.component';
 import {UserUpsertComponent} from './admin/users/user-upsert/user-upsert.component';
+import {BookUpsertResolverService} from './admin/books/book-upsert/book-upsert-resolver.service';
+import {NotFoundComponent} from './error-message/not-found/not-found.component';
+import {ErrorMessageComponent} from './error-message/error-message.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/showcase',
-    pathMatch: 'full'
-  },
   {
     path: 'showcase',
     component: ShowcaseComponent,
@@ -82,7 +80,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/books/:id/edit',
-    component:BookUpsertComponent
+    component:BookUpsertComponent,
+    resolve:{bookUpsert:BookUpsertResolverService}
   },
   {
     path: 'admin/orders',
@@ -100,6 +99,16 @@ export const routes: Routes = [
     path: 'admin/orders/:id/edit',
     component:OrderUpsertComponent
   },
+  {
+    path:'error',
+    component:ErrorMessageComponent
+  },
+  {
+    path:'**',
+    component: NotFoundComponent
+  }
+
+
 
 
 

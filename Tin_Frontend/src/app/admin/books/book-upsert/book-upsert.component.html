@@ -88,9 +88,9 @@
       </div>
     </div>
   </form>
-  <div class="book-current-cover">
-    <label for="currentCover">Current cover:</label>
-    <app-showcase-book-card [ngStyle]="{}" id="currentCover"></app-showcase-book-card>
+  <div *ngIf="bookCardModel.coverUrl" class="book-current-cover">
+    <label for="currentCover">Cover:</label>
+    <app-showcase-book-card [isUpsert] = true *ngIf="imageUrl$ | async as imageUrl" [bookCard]="imageUrl" id="currentCover"></app-showcase-book-card>
   </div>
 </div>
 

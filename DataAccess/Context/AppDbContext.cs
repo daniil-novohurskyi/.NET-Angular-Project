@@ -70,7 +70,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Price)
                 .HasColumnType("money")
                 .HasColumnName("price");
-            entity.Property(e => e.Publishingyear).HasColumnName("publishingyear");
+            entity.Property(e => e.PublishingYear).HasColumnName("publishingyear");
             entity.Property(e => e.Title)
                 .HasMaxLength(100)
                 .HasColumnName("title");

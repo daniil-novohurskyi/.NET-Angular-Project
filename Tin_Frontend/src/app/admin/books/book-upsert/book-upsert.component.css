@@ -39,7 +39,11 @@ form {
 }
 
 .book-current-cover{
-  align-self: center;
+  text-align: center;
+}
+.book-current-cover label {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .btn-go-back {
