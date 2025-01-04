@@ -79,16 +79,16 @@
     </div>
     <div class="row">
       <div class="column">
-        <button class="btn-go-back">Go back</button>
+        <button (click)="navigateToBooks()" class="btn-go-back">Go back</button>
       </div>
       <div class="column">
         <button type="submit" class="btn-submit" [disabled]="bookForm.invalid">
-          {{mode === 'update' ? 'Update Book': 'Add Book'}}
+          {{this.mode === "create" ? 'Add Book' : 'Update Book' }}
         </button>
       </div>
     </div>
   </form>
-  <div *ngIf="bookCardModel.coverUrl" class="book-current-cover">
+  <div *ngIf="bookCardModel" class="book-current-cover">
     <label for="currentCover">Cover:</label>
     <app-showcase-book-card [isUpsert] = true *ngIf="imageUrl$ | async as imageUrl" [bookCard]="imageUrl" id="currentCover"></app-showcase-book-card>
   </div>

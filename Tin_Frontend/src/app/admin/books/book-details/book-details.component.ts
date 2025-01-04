@@ -1,46 +1,30 @@
-import { Component } from '@angular/core';
-import {
-  UserProfileOrderItemModel
-} from '../../../user/user-profile/user-profile-order-history/user-profile-order-item/user-profile-order-item.model';
+import {Component, OnInit} from '@angular/core';
 import {
   UserProfileOrderHistoryComponent
 } from '../../../user/user-profile/user-profile-order-history/user-profile-order-history.component';
+import {BookDetailsService} from './book-details.service';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+import {BookDetailsModel} from '../../../models/books/book-details.model';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
   imports: [
-    UserProfileOrderHistoryComponent
+    UserProfileOrderHistoryComponent,
+    RouterLink
   ],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css'
 })
-export class BookDetailsComponent {
-  public orderList: UserProfileOrderItemModel[] = [
-    {
-      orderId: '1001',
-      date: '2024-11-01',
-      total: 120.0,
-      status: 'Completed',
-    },
-    {
-      orderId: '1002',
-      date: '2024-11-01',
-      total: 120.0,
-      status: 'Completed',
-    },
-    {
-      orderId: '1003',
-      date: '2024-11-01',
-      total: 120.0,
-      status: 'Pending',
-    },
-    {
-      orderId: '1004',
-      date: '2024-12-04',
-      total: 100.0,
-      status: 'Canceled',
-    },
-  ];
+export class BookDetailsComponent implements OnInit {
+  public bookDetails!: BookDetailsModel;
+  constructor(private bookDetailsService: BookDetailsService, private route: ActivatedRoute) {
+  }
 
+  ngOnInit(): void {
+    this.route.data.subscribe(data=>{
+      this.bookDetails= data['bookDetails'];
+      console.log(this.bookDetails);
+    })
+  }
 }

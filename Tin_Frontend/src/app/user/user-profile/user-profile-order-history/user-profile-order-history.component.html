@@ -1,11 +1,10 @@
 <div class="container-header">
   <span><i class="fa-solid fa-file-signature"></i> Order History</span>
-  <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
 </div>
 <div class="content">
   <div class="order-list">
     <app-user-profile-order-item
-      *ngFor="let orderItem of orderList" [orderItem]="orderItem">
+      *ngFor="let orderItem of orderList" [routerLink]="[itemRoute(orderItem)]" [orderItem]="orderItem">
     </app-user-profile-order-item>
   </div>
 </div>

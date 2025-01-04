@@ -16,6 +16,8 @@ export class HttpErrorInterceptorService implements HttpInterceptor {
         let errorMessage = 'Произошла ошибка при выполнении запроса';
           if (error.status === 404) {
             errorMessage = 'Ресурс не найден';
+          } else if (error.status === 400) {
+            errorMessage = 'Неправильный запрос';
           } else if (error.status === 500) {
             errorMessage = 'Ошибка на сервере';
           }

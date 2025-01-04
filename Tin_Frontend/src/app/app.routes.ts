@@ -17,8 +17,15 @@ import {UserUpsertComponent} from './admin/users/user-upsert/user-upsert.compone
 import {BookUpsertResolverService} from './admin/books/book-upsert/book-upsert-resolver.service';
 import {NotFoundComponent} from './error-message/not-found/not-found.component';
 import {ErrorMessageComponent} from './error-message/error-message.component';
+import {BooksInfoResolverService} from './admin/books/books-info/books-info-resolver.service';
+import {BookDetailsResolverService} from './admin/books/book-details/book-details-resolver.service';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'showcase',
+    pathMatch: 'full'
+  },
   {
     path: 'showcase',
     component: ShowcaseComponent,
@@ -46,6 +53,10 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'profile/:id',
+    component: OrderDetailsComponent,
+  },
+  {
     path: 'profile/edit',
     component:UserEditComponent
   },
@@ -68,7 +79,9 @@ export const routes: Routes = [
   },
   {
     path: 'admin/books',
-    component:BooksInfoComponent
+    component:BooksInfoComponent,
+    resolve:{booksInfo:BooksInfoResolverService},
+
   },
   {
     path: 'admin/books/new',
@@ -76,7 +89,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/books/:id',
-    component:BookDetailsComponent
+    component:BookDetailsComponent,
+    resolve:{bookDetails:BookDetailsResolverService}
   },
   {
     path: 'admin/books/:id/edit',

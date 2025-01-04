@@ -54,7 +54,43 @@ namespace DataAccess.Repository.Implementations
             return book;
         }
         
-        public async Task<PaginatedResponse> GetPaginatedBooksAsync(int pageNumber, int pageSize)
+        public async Task<PaginatedAdminBooksResponse> GetPaginatedAdminBooksAsync(int pageNumber, int pageSize)
+        {
+            // Calculate the total number of books
+            var totalCount = await DbSet.CountAsync();
+
+            // Calculate the total number of pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            
+            pageNumber = pageNumber > totalPages ? totalPages : pageNumber;
+
+            // Get the books for the current page
+            var books = await DbSet
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Include(book=>book.Genre)
+                .Include(book => book.Author)
+                .ToListAsync();
+            var adminItemBooks = books.Select(book => new AdminItemBooksResponse()
+            {
+                Isbn = book.Isbn,
+                Genre = book.Genre.Name,
+                Author = book.Author.Name,
+                Title = book.Title
+            }).ToList();
+
+            // Return the paginated response
+            return new PaginatedAdminBooksResponse()
+            {
+                Books = adminItemBooks,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageNumber =  pageNumber > totalPages? totalPages: pageNumber,
+                PageSize = pageSize
+            };
+        }
+        
+        public async Task<PaginatedShowcaseResponse> GetPaginatedShowcaseBooksAsync(int pageNumber, int pageSize)
         {
             // Calculate the total number of books
             var totalCount = await DbSet.CountAsync();
@@ -62,6 +98,7 @@ namespace DataAccess.Repository.Implementations
             // Calculate the total number of pages
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
+            pageNumber = pageNumber > totalPages ? totalPages : pageNumber;
             // Get the books for the current page
             var books = await DbSet
                 .Skip((pageNumber - 1) * pageSize)
@@ -76,12 +113,12 @@ namespace DataAccess.Repository.Implementations
             }).ToList();
 
             // Return the paginated response
-            return new PaginatedResponse
+            return new PaginatedShowcaseResponse
             {
                 Books = showcaseBooks,
                 TotalCount = totalCount,
                 TotalPages = totalPages,
-                PageNumber = pageNumber,
+                PageNumber =  pageNumber > totalPages? totalPages: pageNumber,
                 PageSize = pageSize
             };
         }

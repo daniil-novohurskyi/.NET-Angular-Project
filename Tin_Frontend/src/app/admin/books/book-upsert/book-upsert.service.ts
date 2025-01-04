@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BookUpsertModel} from '../../../models/books/bookUpsert.model';
+import {BookUpsertModel} from '../../../models/books/book-upsert.model';
 import {ApiService} from '../../../api/api.service';
 
 @Injectable({
@@ -15,7 +15,6 @@ export class BookUpsertService {
     this.apiService.get<BookUpsertModel>(`admin/books/${id}/edit`)
       .subscribe(bookUpsert => {
         this.bookUpsert = bookUpsert;
-        console.log(bookUpsert);
       });
   }
   updateBook(bookId:string, formData:FormData){

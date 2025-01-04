@@ -34,7 +34,7 @@ public class ProfileController:ControllerBase
             Id = order.Id,
             Date = order.Date,
             Status = order.Status,
-            Totalprice = order.TotalPrice
+            TotalPrice = order.TotalPrice
         }).ToList();
 
         var response = new UserDetailsResponse()

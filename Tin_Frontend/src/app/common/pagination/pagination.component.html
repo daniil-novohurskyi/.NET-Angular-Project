@@ -1,3 +1,4 @@
-<button class="prev">Previous</button>
-<span class="page-info">Page 1 of 4</span>
-<button class="next">Next</button>
+  <button class="prev" (click)="onPageChange(currentPage - 1)" [disabled]="currentPage <= 1">Previous</button>
+  <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button class="next" (click)="onPageChange(currentPage + 1)" [disabled]="currentPage >= totalPages">Next</button>
+

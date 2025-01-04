@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule,} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {
   ShowcaseBookCardComponent
 } from '../../../showcase/showcase-books/showcase-book-card/showcase-book-card.component';
@@ -16,12 +16,14 @@ import {BehaviorSubject} from 'rxjs';
   imports: [
     ReactiveFormsModule,
     ShowcaseBookCardComponent,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   styleUrls: ['./book-upsert.component.css']
 })
-export class BookUpsertComponent implements OnInit {
-  @Input() mode!: 'update' | 'create';
+export class BookUpsertComponent implements OnInit{
+  @Input() mode: 'update' | 'create' = 'create';
+  showComponent = false;
   @Output() bookCardModel!: BookCardModel;
   private bookCardModelSubject = new BehaviorSubject<BookCardModel | null>(null);
   imageUrl$ = this.bookCardModelSubject.asObservable();
@@ -29,16 +31,10 @@ export class BookUpsertComponent implements OnInit {
   bookForm: FormGroup;
   selectedFile: File | null = null;
 
-  constructor(private bookUpsertService: BookUpsertService,private route: ActivatedRoute) {
-    this.route.url.subscribe(urlSegments => {
-      if (urlSegments.length > 0) {
-        // Get the last segment
-        const action = urlSegments[urlSegments.length - 1].path;
-        this.mode = action === 'new' ? 'create' : 'update';
-      }})
+  constructor(private bookUpsertService: BookUpsertService, private route: ActivatedRoute,private router :Router) {
     // Initialize the form manually
     this.bookForm = new FormGroup({
-      title: new FormControl('', Validators.required),
+      title: new FormControl('', Validators.required),//TODO:AsyncValidator for unique Title
       genre: new FormControl('', Validators.required),
       author: new FormControl('', Validators.required),
       publishingYear: new FormControl('', [
@@ -51,25 +47,27 @@ export class BookUpsertComponent implements OnInit {
   }
 
   ngOnInit(){
+    const isUpdate = this.route.snapshot.paramMap.has('id');  // Проверяем, есть ли параметр 'id' в URL
+    this.mode = !isUpdate ? 'create' : 'update';
 
     if(this.mode === 'update') {
       this.route.data.subscribe(data => {
         this.bookUpsertService.bookUpsert = data['bookUpsert'];
         console.log(this.bookUpsertService.bookUpsert);
       });
+      //if not this timeout Add book and header icon will not render -_-
+    } else{
+      setTimeout(() => {
+      }, 1);
     }
-    this.bookCardModel = {
-      id: "",
-      title: "",
-      price:null,
-      coverUrl:this.bookUpsertService.bookUpsert.coverUrl,
-    }
-    this.bookCardModelSubject.next(this.bookCardModel);
-
-    console.log(this.bookUpsertService.bookUpsert);
-    console.log(this.bookUpsertService.bookUpsert.publishingYear);
     if(this.mode === 'update') {
-      this.bookCardModel.coverUrl = this.bookUpsertService.bookUpsert.coverUrl;
+      this.bookCardModel = {
+        id: "",
+        title: "",
+        price:null,
+        coverUrl:this.bookUpsertService.bookUpsert.coverUrl,
+      }
+      this.bookCardModelSubject.next(this.bookCardModel);
       console.log("Loaded:", this.bookCardModel.coverUrl);
       this.bookForm.setValue({
         title:this.bookUpsertService.bookUpsert.title,
@@ -118,5 +116,9 @@ export class BookUpsertComponent implements OnInit {
         console.log( key,': ', value);
       })
     }
+  }
+
+  navigateToBooks(): void {
+    this.router.navigate(['/admin/books']);
   }
 }

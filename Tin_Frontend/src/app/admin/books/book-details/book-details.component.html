@@ -1,27 +1,27 @@
  <div class="book-details-horizontal">
     <div class="book-image">
-      <img src="/public/images/books_titles/soul_olivia_wilson.jpg" alt="Book Cover">
+      <img src="{{bookDetails.coverUrl}}" alt="Book Cover">
     </div>
     <div class="book-info">
-      <p class="book-title"><strong>Title: </strong>SOUL</p>
+      <p class="book-title"><strong>Title: </strong>{{ bookDetails.title }}</p>
       <div class="row">
-        <div class="column"><p class="book-author"><strong>Author: </strong>Olivia Wilson</p></div>
-        <div class="column"><p class="book-price"><strong>Price: </strong>40 zł</p></div>
+        <div class="column"><p class="book-author"><strong>Author: </strong>{{bookDetails.author}}</p></div>
+        <div class="column"><p class="book-price"><strong>Price: </strong>{{bookDetails.price}} zł</p></div>
       </div>
       <p class="book-description">
-        <strong>Short description: </strong>The life that Kim and Krickitt Carpenter knew changed completely on November 24, 1993, two months after their wedding, when the back of their car was struck by a speeding pickup truck. A serious head injury left Krickitt in a coma for several weeks. When she finally woke up, part of her memory was impaired and she could not remember her husband. She had no idea who he was. Essentially, the "Krickitt" that Kim had married had died in the accident, and now he needed to win back the woman he loved.
-      </p>
+        <strong>Short description: </strong>{{bookDetails.description}}</p>
       <div class="row">
         <div class="column"><div class="book-meta">
-          <p class="book-genre"><strong>Genre:</strong> Drama</p>
-          <p class="book-publish-year"><strong>Publish year:</strong> 2020</p>
+          <p class="book-genre"><strong>Genre:</strong> {{bookDetails.genre}}</p>
+          <p class="book-publish-year"><strong>Publish year:</strong> {{bookDetails.publishingYear}}</p>
         </div></div>
-        <div class="column" style="justify-content: center;"><button class="btn-go-back">Go back</button>
+        <div  class="column" style="justify-content: center;">
+          <button [routerLink]='[".."]' class="btn-go-back">Go back</button>
         </div>
       </div>
     </div>
   </div>
   <div class="order-list-section">
-      <app-user-profile-order-history></app-user-profile-order-history>
+      <app-user-profile-order-history [orderList] = 'this.bookDetails.orders' ></app-user-profile-order-history>
   </div>
 

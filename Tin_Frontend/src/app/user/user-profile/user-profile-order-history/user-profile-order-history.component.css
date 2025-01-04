@@ -30,8 +30,8 @@
 }
 
 .order-list {
-  display: flex
-;
+  margin-top: 5px;
+  display: flex;
   flex-direction: column;
   gap: 15px;
   max-height: 57vh;
@@ -39,6 +39,9 @@
   scrollbar-width: thin;
   scrollbar-color: #888 transparent;
   position: relative;
+}
+.order-list::before{
+  content: '';
 }
 
 

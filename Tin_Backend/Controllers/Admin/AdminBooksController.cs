@@ -14,6 +14,8 @@ public class AdminBooksController : ControllerBase
 {
     private readonly IWebHostEnvironment _env;
     private readonly IUnitOfWork _unitOfWork;
+    private const int Offset = 10;
+
 
 
     public AdminBooksController(IUnitOfWork unitOfWork, IWebHostEnvironment env)
@@ -36,6 +38,14 @@ public class AdminBooksController : ControllerBase
             });
         return Ok(books);
     }
+    
+    [HttpGet]
+    [Route("paginated")]
+    public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
+    {
+        var response = await _unitOfWork.BookRepository.GetPaginatedAdminBooksAsync(pageNum, Offset);
+        return Ok(response);
+    }
 
     [HttpGet]
     [Route("{id}/details")]
@@ -50,14 +60,21 @@ public class AdminBooksController : ControllerBase
             Id = orderItem.OrderId,
             Date = orderItem.Order.Date,
             Status = orderItem.Order.Status,
-            Totalprice = orderItem.Order.TotalPrice
+            TotalPrice = orderItem.Order.TotalPrice
         }).ToList();
+        
+        var coverUrl = GenerateImageUrl(bookWithIncludes.Cover);
+
         var response = new BookDetailsResponse()
         {
             Isbn = bookWithIncludes.Isbn,
             Title = bookWithIncludes.Title,
             Author = bookWithIncludes.Author.Name,
             Genre = bookWithIncludes.Genre.Name,
+            Price = bookWithIncludes.Price,
+            Description = bookWithIncludes.Description!,
+            CoverUrl = coverUrl,
+            PublishingYear = bookWithIncludes.PublishingYear,
             Orders = orders
         };
         return Ok(response);

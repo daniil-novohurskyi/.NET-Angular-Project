@@ -16,7 +16,8 @@ namespace DataAccess.Repository.Interfaces
         
         Task<Book?> GetByTitleAsync(string title);
 
-        public Task<PaginatedResponse> GetPaginatedBooksAsync(int pageNumber, int pageSize);
+        public Task<PaginatedShowcaseResponse> GetPaginatedShowcaseBooksAsync(int pageNumber, int pageSize);
+        public Task<PaginatedAdminBooksResponse> GetPaginatedAdminBooksAsync(int pageNumber, int pageSize);
 
         public Task<ICollection<Book>?> GetAllFromIdList(ICollection<string> booksIsbn);
 

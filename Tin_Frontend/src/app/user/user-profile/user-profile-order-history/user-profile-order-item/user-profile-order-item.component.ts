@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {UserProfileOrderItemModel} from './user-profile-order-item.model';
+import {OrderListItemModel} from '../../../../models/orders/order-list-item.model';
 import {NgClass} from '@angular/common';
 
 @Component({
@@ -12,16 +12,6 @@ import {NgClass} from '@angular/common';
   styleUrl: './user-profile-order-item.component.css'
 })
 export class UserProfileOrderItemComponent {
-  @Input() public orderItem!: UserProfileOrderItemModel;
+  @Input() public orderItem!: OrderListItemModel;
 
-  // orderStatusColor():string{
-  //   switch (this.orderItem.status) {
-  //     case "Completed":
-  //       return "completed";
-  //     case "Canceled":
-  //       return "canceled";
-  //     case "Pending":
-  //       return "pending";
-  //   }
-  //}
 }

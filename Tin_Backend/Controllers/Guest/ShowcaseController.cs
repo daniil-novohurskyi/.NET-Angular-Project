@@ -18,9 +18,9 @@ public class ShowcaseController:ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPaginatedbooksAsync([FromQuery] int pageNum)
+    public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
     {
-        var response = await _unitOfWork.BookRepository.GetPaginatedBooksAsync(pageNum, Offset);
+        var response = await _unitOfWork.BookRepository.GetPaginatedShowcaseBooksAsync(pageNum, Offset);
         return Ok(response);
     }
 
