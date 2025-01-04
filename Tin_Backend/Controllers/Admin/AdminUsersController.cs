@@ -13,6 +13,8 @@ namespace Tin_Backend.Controllers.Admin;
 public class AdminUsersController :ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
+    private const int Offset = 10;
+
 
     public AdminUsersController(IUnitOfWork unitOfWork)
     {
@@ -30,6 +32,14 @@ public class AdminUsersController :ControllerBase
             Email = user.Email,
             Phone = user.Phone
         });
+        return Ok(response);
+    }
+    
+    [HttpGet]
+    [Route("paginated")]
+    public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
+    {
+        var response = await _unitOfWork.UserRepository.GetPaginatedAdminUsersAsync(pageNum, Offset);
         return Ok(response);
     }
 
@@ -62,7 +72,7 @@ public class AdminUsersController :ControllerBase
             City = usersWithIncludes.City,
             Street = usersWithIncludes.Street,
             Unit = usersWithIncludes.Unit,
-            Postalcode = usersWithIncludes.Postalcode,
+            PostalCode = usersWithIncludes.PostalCode,
             Orders = ordersDto
         };
         return Ok(response);
@@ -89,7 +99,7 @@ public class AdminUsersController :ControllerBase
             City = user.City,
             Street = user.Street,
             Unit = user.Unit,
-            Postalcode = user.Postalcode
+            PostalCode = user.PostalCode
         };
         await _unitOfWork.CommitTransactionAsync();
         return Ok(response);
@@ -113,7 +123,7 @@ public class AdminUsersController :ControllerBase
             Phone = request.Phone,
             Email = request.Email,
             Name = request.Name,
-            Postalcode = request.Postalcode,
+            PostalCode = request.Postalcode,
             Role = request.Role,
             Street = request.Street,
             Unit = request.Unit,
@@ -134,14 +144,50 @@ public class AdminUsersController :ControllerBase
             City = createdUser.City,
             Street = createdUser.Street,
             Unit = createdUser.Unit,
-            Postalcode = createdUser.Postalcode
+            PostalCode = createdUser.PostalCode
         };
         return Ok(response);
     }
 
     [HttpPut]
-    [Route("{id}/edit")]
-    public async Task<IActionResult> UpdateById(int id, [FromBody] UserUpsertRequest request)
+    [Route("{id}/info/edit")]
+    public async Task<IActionResult> UpdateInfoById(int id, [FromBody] UserUpdateInfoRequest request)
+    {
+        await _unitOfWork.BeginTransactionAsync();
+        //check if exists
+        var userUpdating = await _unitOfWork.UserRepository.GetByIdAsync(id);
+        if (userUpdating == null)
+        {
+            return NotFound("user not found");
+        }
+        
+        userUpdating.City = request.City;
+        userUpdating.Phone = request.Phone;
+        userUpdating.Name = request.Name;
+        userUpdating.PostalCode = request.Postalcode;
+        userUpdating.Role = request.Role;
+        userUpdating.Street = request.Street;
+        userUpdating.Unit = request.Unit;
+        await _unitOfWork.UserRepository.UpdateAsync(userUpdating);
+        await _unitOfWork.SaveChangesAsync();
+        
+        var response = new UserUpsertResponse()
+        {
+            Name = userUpdating.Name,
+            Phone = userUpdating.Phone,
+            Role = userUpdating.Role,
+            City = userUpdating.City,
+            Street = userUpdating.Street,
+            Unit = userUpdating.Unit,
+            PostalCode = userUpdating.PostalCode
+        };
+        await _unitOfWork.CommitTransactionAsync();
+        return Ok(response);
+    }
+    
+    [HttpPut]
+    [Route("{id}/credentials/edit")]
+    public async Task<IActionResult> UpdateCredentialsById(int id, [FromBody] UserUpdateCredentialsRequest request)
     {
         await _unitOfWork.BeginTransactionAsync();
         //check if exists
@@ -158,33 +204,14 @@ public class AdminUsersController :ControllerBase
             return BadRequest("Email must be unique");
         }
         
-        userUpdating.City = request.City;
-        userUpdating.Phone = request.Phone;
         userUpdating.Email = request.Email;
-        userUpdating.Name = request.Name;
-        userUpdating.Postalcode = request.Postalcode;
-        userUpdating.Role = request.Role;
-        userUpdating.Street = request.Street;
-        userUpdating.Unit = request.Unit;
         //TODO:Hash password
-        if (request.Password != null)
+        if (!request.Password.Equals(""))
             userUpdating.Password = request.Password;
         await _unitOfWork.UserRepository.UpdateAsync(userUpdating);
         await _unitOfWork.SaveChangesAsync();
-        
-        var response = new UserUpsertResponse()
-        {
-            Name = userUpdating.Name,
-            Email = userUpdating.Email,
-            Phone = userUpdating.Phone,
-            Role = userUpdating.Role,
-            City = userUpdating.City,
-            Street = userUpdating.Street,
-            Unit = userUpdating.Unit,
-            Postalcode = userUpdating.Postalcode
-        };
         await _unitOfWork.CommitTransactionAsync();
-        return Ok(response);
+        return Ok();
     }
 
     [HttpDelete]

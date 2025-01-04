@@ -1,6 +1,6 @@
 <div class="table-header">
   <h1>Users</h1>
-  <button class="btn-submit"><i class="fa-solid fa-plus"></i> New User</button>
+  <button [routerLink]="['new']" class="btn-submit"><i class="fa-solid fa-plus"></i> New User</button>
 </div>
 <table>
   <thead>
@@ -13,136 +13,25 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>John Doe</td>
-    <td>Client</td>
-    <td>johndoe&#64;example.com</td>
-    <td>+123456789</td>
+  <tr *ngFor = "let user of usersInfoService.usersInfo.users">
+    <td>{{user.name}}</td>
+    <td>{{user.role}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone}}</td>
     <td>
       <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Jane Smith</td>
-    <td>Client</td>
-    <td>janesmith&#64;example.com</td>
-    <td>+987654321</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Emily Johnson</td>
-    <td>Admin</td>
-    <td>emilyj&#64;example.com</td>
-    <td>+1122334455</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Michael Brown</td>
-    <td>Admin</td>
-    <td>michaelb&#64;example.com</td>
-    <td>+1230984567</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Sarah Davis</td>
-    <td>Client</td>
-    <td>sarahd&#64;example.com</td>
-    <td>+7896541230</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>David Wilson</td>
-    <td>Client</td>
-    <td>davidw&#64;example.com</td>
-    <td>+4561237890</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Laura Miller</td>
-    <td>Admin</td>
-    <td>lauram&#64;example.com</td>
-    <td>+3216549870</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Chris Taylor</td>
-    <td>Client</td>
-    <td>christ&#64;example.com</td>
-    <td>+8523697410</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Amy Martinez</td>
-    <td>Admin</td>
-    <td>amym&#64;example.com</td>
-    <td>+1472583690</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Brian Anderson</td>
-    <td>Client</td>
-    <td>briana&#64;example.com</td>
-    <td>+9517538520</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
+        <button [routerLink]="[user.id]" class="details-button" title="Details"><i class="fa-solid fa-circle-info"></i></button>
+        <button [routerLink]="[user.id,'edit']" class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button (click)="OnDelete(user.id)" class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
-<app-pagination></app-pagination>
+<app-pagination
+  [currentPage]="usersInfoService.usersInfo.pageNumber"
+  [totalPages]="usersInfoService.usersInfo.totalPages"
+  [totalItems]="usersInfoService.usersInfo.totalCount"
+  [pageSize]="usersInfoService.usersInfo.pageSize"
+  (pageChanged)="onPageChanged($event)">
+  ></app-pagination>

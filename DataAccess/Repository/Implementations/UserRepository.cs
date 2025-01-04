@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models;
 using DataAccess.Models.Domain;
+using DataAccess.Models.Responses.Admin.Users;
 using DataAccess.Repository.Interfaces;
 
 namespace DataAccess.Repository.Implementations
@@ -30,6 +31,42 @@ namespace DataAccess.Repository.Implementations
                 .Include(user => user.Orders)
                 .ThenInclude(order => order.OrderItems)
                 .FirstOrDefaultAsync(user => user.Id == id);
+        }
+
+        public async Task<PaginatedAdminUsersResponse> GetPaginatedAdminUsersAsync(int pageNum, int offset)
+        {
+            // Calculate the total number of books
+            var totalCount = await DbSet.CountAsync();
+
+            // Calculate the total number of pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)offset);
+            
+            pageNum = pageNum > totalPages ? totalPages : pageNum;
+
+            // Get the books for the current page
+            var books = await DbSet
+                .Skip((pageNum - 1) * offset)
+                .Take(offset)
+                .ToListAsync();
+            var adminItemUsers = books.Select(user => new AdminItemUsersResponse()
+            {
+                
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Phone = user.Phone,
+                Role = user.Role
+            }).ToList();
+
+            // Return the paginated response
+            return new PaginatedAdminUsersResponse()
+            {
+                Users = adminItemUsers,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageNumber =  pageNum > totalPages? totalPages: pageNum,
+                PageSize = offset
+            };
         }
     }
 }

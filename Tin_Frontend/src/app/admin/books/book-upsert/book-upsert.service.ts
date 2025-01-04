@@ -9,14 +9,6 @@ export class BookUpsertService {
  public bookUpsert!: BookUpsertModel;
   constructor(private apiService: ApiService) {
   }
-
-
-  getBookById(id: string) {
-    this.apiService.get<BookUpsertModel>(`admin/books/${id}/edit`)
-      .subscribe(bookUpsert => {
-        this.bookUpsert = bookUpsert;
-      });
-  }
   updateBook(bookId:string, formData:FormData){
     this.apiService.putFormData(`admin/books/${bookId}/edit`, formData).subscribe(bookUpsert => {
       console.log(bookUpsert);

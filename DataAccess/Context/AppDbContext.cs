@@ -211,7 +211,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(12)
                 .HasColumnName("phone");
-            entity.Property(e => e.Postalcode)
+            entity.Property(e => e.PostalCode)
                 .HasMaxLength(6)
                 .HasColumnName("postalcode");
             entity.Property(e => e.Role)

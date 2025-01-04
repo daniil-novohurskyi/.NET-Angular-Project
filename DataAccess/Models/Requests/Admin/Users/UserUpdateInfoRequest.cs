@@ -1,10 +1,8 @@
-namespace DataAccess.Models.Responses.Admin.Users;
+namespace DataAccess.Models.Requests.Admin.Users;
 
-public class UserUpsertResponse
+public class UserUpdateInfoRequest
 {
     public string Name { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
     
     public string Role { get; set; } = null!;
 
@@ -16,5 +14,5 @@ public class UserUpsertResponse
 
     public int? Unit { get; set; }
 
-    public string? PostalCode { get; set; }
+    public string? Postalcode { get; set; }
 }

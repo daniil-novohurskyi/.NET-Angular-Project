@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PaginationComponent} from "../../../common/pagination/pagination.component";
 import {BooksInfoService} from './books-info.service';
-import {NgForOf, SlicePipe} from '@angular/common';
+import {NgForOf} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 
 @Component({
@@ -10,8 +10,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
   imports: [
     PaginationComponent,
     NgForOf,
-    RouterLink,
-    SlicePipe
+    RouterLink
   ],
   templateUrl: './books-info.component.html',
   styleUrl: './books-info.component.css'

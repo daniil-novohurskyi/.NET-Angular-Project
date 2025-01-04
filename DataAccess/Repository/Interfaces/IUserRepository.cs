@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Domain;
+using DataAccess.Models.Responses.Admin.Users;
 
 namespace DataAccess.Repository.Interfaces
 {
@@ -12,5 +13,6 @@ namespace DataAccess.Repository.Interfaces
     {
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByIdWithOrderItemsAsync(int id);
+        Task<PaginatedAdminUsersResponse> GetPaginatedAdminUsersAsync(int pageNum, int offset);
     }
 }

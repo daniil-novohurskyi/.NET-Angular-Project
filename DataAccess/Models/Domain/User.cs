@@ -23,7 +23,7 @@ public partial class User
 
     public int? Unit { get; set; }
 
-    public string? Postalcode { get; set; }
+    public string? PostalCode { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

@@ -19,6 +19,8 @@ import {NotFoundComponent} from './error-message/not-found/not-found.component';
 import {ErrorMessageComponent} from './error-message/error-message.component';
 import {BooksInfoResolverService} from './admin/books/books-info/books-info-resolver.service';
 import {BookDetailsResolverService} from './admin/books/book-details/book-details-resolver.service';
+import {UsersInfoResolverService} from './admin/users/users-info/users-info-resolver.service';
+import {UserUpsertResolverService} from './admin/users/user-upsert/user-upsert-resolver.service';
 
 export const routes: Routes = [
   {
@@ -62,7 +64,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/users',
-    component:UsersInfoComponent
+    component:UsersInfoComponent,
+    resolve: {usersInfo:UsersInfoResolverService}
   },
   {
     path: 'admin/users/new',
@@ -74,7 +77,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/users/:id/edit',
-    component: UserUpsertComponent
+    component: UserUpsertComponent,
+    resolve:{userUpsert:UserUpsertResolverService}
 
   },
   {

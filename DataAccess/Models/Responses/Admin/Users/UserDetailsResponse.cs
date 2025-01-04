@@ -19,7 +19,7 @@ public class UserDetailsResponse
 
     public int? Unit { get; set; }
 
-    public string? Postalcode { get; set; }
+    public string? PostalCode { get; set; }
     
     public ICollection<OrderDTO> Orders { get; set; } = new List<OrderDTO>();
 }

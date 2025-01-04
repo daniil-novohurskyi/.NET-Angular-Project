@@ -46,7 +46,7 @@ public class ProfileController:ControllerBase
             City = usersWithIncludes.City,
             Street = usersWithIncludes.Street,
             Unit = usersWithIncludes.Unit,
-            Postalcode = usersWithIncludes.Postalcode,
+            PostalCode = usersWithIncludes.PostalCode,
             Orders = ordersDto
         };
         return Ok(response);
@@ -74,7 +74,7 @@ public class ProfileController:ControllerBase
         userUpdating.Phone = request.Phone;
         userUpdating.Email = request.Email;
         userUpdating.Name = request.Name;
-        userUpdating.Postalcode = request.Postalcode;
+        userUpdating.PostalCode = request.Postalcode;
         userUpdating.Street = request.Street;
         userUpdating.Unit = request.Unit;
         //TODO:Hash password
@@ -92,7 +92,7 @@ public class ProfileController:ControllerBase
             City = userUpdating.City,
             Street = userUpdating.Street,
             Unit = userUpdating.Unit,
-            Postalcode = userUpdating.Postalcode
+            PostalCode = userUpdating.PostalCode
         };
         await _unitOfWork.CommitTransactionAsync();
         return Ok(response);
