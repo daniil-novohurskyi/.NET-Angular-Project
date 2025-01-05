@@ -3,8 +3,8 @@ using DataAccess.Models.DTO;
 using DataAccess.Models.Requests;
 using DataAccess.Models.Responses.Admin;
 using DataAccess.Repository.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using CartItemResponse = DataAccess.Models.Responses.Admin.Books.CartItemResponse;
 
 namespace Tin_Backend.Controllers.Admin;
 
@@ -34,7 +34,7 @@ public class AdminBooksController : ControllerBase
                 Isbn = book!.Isbn,
                 Title = book.Title,
                 Genre = book.Genre.Name,
-                Author = book!.Author.Name
+                Author = book.Author.Name
             });
         return Ok(books);
     }
@@ -44,6 +44,17 @@ public class AdminBooksController : ControllerBase
     public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
     {
         var response = await _unitOfWork.BookRepository.GetPaginatedAdminBooksAsync(pageNum, Offset);
+        return Ok(response);
+    }
+    [HttpPost]
+    [Route("paginated")]
+    public async Task<IActionResult> GetFilteredPaginatedBooksAsync([FromQuery] int pageNum,[FromBody] List<string> isbnsList)
+    {
+        var response = await _unitOfWork.BookRepository.GetFilteredPaginatedBooksAsync(pageNum, Offset,isbnsList);
+        foreach (CartItemResponse cartItemResponse in response.OrderItems)
+        {
+            cartItemResponse.CoverUrl = GenerateImageUrl(cartItemResponse.CoverUrl);
+        }
         return Ok(response);
     }
 

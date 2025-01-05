@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 import {OrderListItemComponent} from './order-list-item/order-list-item.component';
-import {OrderListItemModel} from './order-list-item/order-list-item.model';
+import {CartService} from '../cart.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -11,53 +12,21 @@ import {OrderListItemModel} from './order-list-item/order-list-item.model';
     NgForOf,
     ReactiveFormsModule,
     NgIf,
-    OrderListItemComponent
+    OrderListItemComponent,
+    RouterLink
   ],
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit {
   orderForm: FormGroup;
+  totalPrice!: number;
 
-  protected books: OrderListItemModel[] = [
-    {
-      imageSrc: "/public/images/books_titles/cover-books-design-illustrations.jpg",
-      title: "Patchwork - Wojciech Garula",
-      isbn: "(9788308081655)",
-      quantity: 1,
-      price: 38.75
-    },
-    {
-      imageSrc: "/public/images/books_titles/71jD4jMityL._AC_UF1000,1000_QL80_.jpg",
-      title: "Light of Books - Pavel Litvin",
-      isbn: "(9788377852020)",
-      quantity: 2,
-      price: 45.99
-    },
-    {
-      imageSrc: "/public/images/books_titles/Harry_Potter_and_the_Cursed_Child.jpg",
-      title: "The Storyteller - Jane Doe",
-      isbn: "(9788499923120)",
-      quantity: 3,
-      price: 52.30
-    },
-    {
-      imageSrc: "/public/images/books_titles/the-godfather-b-iext162736576.jpg",
-      title: "Adventures of Tomorrow - Mark Smith",
-      isbn: "(9781234567890)",
-      quantity: 1,
-      price: 29.99
-    },
-    {
-      imageSrc: "/public/images/books_titles/The_Lord_of_the_Rings.jpg",
-      title: "Mystery of the Forest - Sarah Green",
-      isbn: "(9789876543210)",
-      quantity: 4,
-      price: 60.50
-    }
-  ];
+  constructor(private fb: FormBuilder,public cartService: CartService) {
 
-  constructor(private fb: FormBuilder) {
+    this.cartService.cart$.subscribe((items) => {
+      this.totalPrice = items.reduce((total, item) => total + item.price, 0);
+    });
     this.orderForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       phone: ['', [Validators.required, Validators.pattern(/^(\+?\d{1,3}?)?(\d{10})$/)]],
@@ -67,6 +36,10 @@ export class OrderComponent {
       unit: ['',Validators.required],
       postalCode: ['', [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)]]
     });
+  }
+
+  ngOnInit(): void {
+
   }
 
   get name() {

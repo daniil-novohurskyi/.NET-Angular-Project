@@ -37,7 +37,7 @@ public class AdminUsersController :ControllerBase
     
     [HttpGet]
     [Route("paginated")]
-    public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
+    public async Task<IActionResult> GetPaginatedUsersAsync([FromQuery] int pageNum)
     {
         var response = await _unitOfWork.UserRepository.GetPaginatedAdminUsersAsync(pageNum, Offset);
         return Ok(response);
@@ -63,7 +63,7 @@ public class AdminUsersController :ControllerBase
             TotalPrice = order.TotalPrice
         }).ToList();
 
-        var response = new UserDetailsResponse()
+        var userInfo = new UserProfileDTO()
         {
             Name = usersWithIncludes.Name,
             Email = usersWithIncludes.Email,
@@ -73,6 +73,10 @@ public class AdminUsersController :ControllerBase
             Street = usersWithIncludes.Street,
             Unit = usersWithIncludes.Unit,
             PostalCode = usersWithIncludes.PostalCode,
+        };
+        var response = new UserDetailsResponse()
+        {
+            UserInfo = userInfo,
             Orders = ordersDto
         };
         return Ok(response);

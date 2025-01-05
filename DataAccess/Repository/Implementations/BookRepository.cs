@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Models.Domain;
+using DataAccess.Models.Responses.Admin.Books;
 using DataAccess.Models.Responses.Guest;
 using DataAccess.Repository.Interfaces;
 
@@ -61,6 +62,15 @@ namespace DataAccess.Repository.Implementations
 
             // Calculate the total number of pages
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            if (totalPages == 0)
+                return new PaginatedAdminBooksResponse()
+                {
+                    Books = new List<AdminItemBooksResponse>(),
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    PageNumber =  pageNumber > totalPages? totalPages: pageNumber,
+                    PageSize = pageSize
+                };
             
             pageNumber = pageNumber > totalPages ? totalPages : pageNumber;
 
@@ -126,6 +136,55 @@ namespace DataAccess.Repository.Implementations
         public async Task<ICollection<Book>?> GetAllFromIdList(ICollection<string> booksIsbn)
         {
             return await DbSet.Where(book => booksIsbn.Contains(book.Isbn)).ToListAsync();
+        }
+
+        public async Task<PaginatedFilterdCartItemsResponse> GetFilteredPaginatedBooksAsync(int pageNum, int offset,List<string> isbnList)
+        {
+            
+            // Calculate the total number of books
+            var totalCount = await DbSet.Where(book => !isbnList.Any(isbn=>isbn.Equals(book.Isbn))).CountAsync();
+
+            // Calculate the total number of pages
+            var totalPages = (int)Math.Ceiling(totalCount / (double)offset);
+            if (totalPages == 0)
+                return new PaginatedFilterdCartItemsResponse()
+                {
+                    OrderItems = new List<CartItemResponse>(),
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    PageNumber =  pageNum > totalPages? totalPages: pageNum,
+                    PageSize = offset
+                };
+            
+            pageNum = pageNum > totalPages ? totalPages : pageNum;
+
+            // Get the books for the current page
+            var books = await DbSet
+                .Where(book => !isbnList.Any(isbn=>isbn.Equals(book.Isbn)))
+                .Skip((pageNum - 1) * offset)
+                .Take(offset)
+                .Include(book=>book.Genre)
+                .Include(book => book.Author)
+                .ToListAsync();
+            var orderItems = books.Select(book => new CartItemResponse()
+            {
+                Isbn = book.Isbn,
+                CoverUrl = book.Cover,
+                PricePerUnit = book.Price,
+                Title = book.Title,
+                Quantity = 0,
+                Price = 0
+            }).ToList();
+
+            // Return the paginated response
+            return new PaginatedFilterdCartItemsResponse()
+            {
+                OrderItems = orderItems,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageNumber =  pageNum > totalPages? totalPages: pageNum,
+                PageSize = offset
+            };
         }
     }
 }

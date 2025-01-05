@@ -1,131 +1,148 @@
 <div class="container-header">
-    <span><i class="fa-solid fa-pen-to-square"></i> Update Order</span>
-    <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
-  </div>
-
-  <div class="content">
-    <div class="content-section">
-      <h2>Client:</h2>
-      <div class="row">
-        <div class="column">
-          <label for="email">Email:</label>
-          <input type="email" value="john.doe@example.com" id="email" disabled>
-        </div>
+  <span>
+    <i
+      [ngClass]="{
+        'fa-solid': true,
+        'fa-pen-to-square': mode === 'update',
+        'fa-receipt': mode === 'create'
+      }"
+    ></i>
+    {{ mode === 'update' ? ' Update Order' : ' Add Order' }}
+  </span>
+  <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="content">
+  <div class="content-section">
+    <h2>Client:</h2>
+    <div class="row">
+      <div class="column">
+        <label for="email">Email:</label>
+        <input type="email" value="{{this.pickedCustomer.email}}" id="email" disabled>
       </div>
+    </div>
+    <div class="row">
+      <div class="column">
+        <label for="clientName">Name:</label>
+        <input type="text" id="clientName" value="{{this.pickedCustomer.name}}" disabled>
+        <span *ngIf="(isSubmited && !this.pickedCustomer)" class="error">Please pick a customer</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column"></div>
+      <div class="column">
+        <button class="btn-submit" id="btn-add-client" (click)="openAddClientDialog()">Change Client</button>
+      </div>
+    </div>
+
+    <h2>Delivery Details:</h2>
+
+    <form [formGroup]="deliveryGroup" class="delivery-info">
       <div class="row">
         <div class="column">
           <label for="name">Name:</label>
-          <input type="text" value="John Doe" id="name" disabled>
+          <input type="text" id="name" formControlName="name">
+          <span *ngIf="(deliveryGroup.get('name')?.invalid && deliveryGroup.get('name')?.touched) || (isSubmited && deliveryGroup.get('name')?.invalid)" class="error">Name is required</span>
         </div>
-      </div>
-      <div class="row">
-        <div class="column"></div>
         <div class="column">
-          <button class="btn-submit" id="btn-add-client" (click)="openAddClientDialog()" >Change Client</button>
+          <label for="phone">Phone:</label>
+          <input type="tel" id="phone" formControlName="phone">
+          <span *ngIf="(deliveryGroup.get('phone')?.invalid && deliveryGroup.get('phone')?.touched) || (isSubmited && deliveryGroup.get('phone')?.invalid)" class="error">Phone is required</span>
         </div>
       </div>
-
-
-
-      <h2>Delivery Details:</h2>
-
-      <form>
-        <div class="row">
-          <div class="column">
-            <label for="name">Name:</label>
-            <input type="text" value="John Doe" id="name" required>
-          </div>
-          <div class="column">
-            <label for="phone">Phone:</label>
-            <input type="tel" value="+1 234 567 890" id="phone" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="column">
-            <label for="city">City:</label>
-            <input type="text" value="San Francisco" id="city" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="column">
-            <label for="address">Street Address:</label>
-            <input type="text" value="123 Main St, Springfield" id="address" required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="column">
-            <label for="unit">Unit:</label>
-            <input type="text" value="20" id="unit" required>
-          </div>
-          <div class="column">
-            <label for="postalCode">Postal Code:</label>
-            <input type="text" value="02-543" id="postalCode" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="column">
-            <button class="btn-go-back"><i class="fa-solid fa-arrow-left"></i> Go back</button>
-          </div>
-          <div class="column">
-            <button class="btn-submit">Submit</button>
-          </div>
-        </div>
-
-
-
-
-      </form>
-    </div>
-    <div class="content-section">
-      <h2>Order Details:</h2>
-
-      <div class="order-details">
-
-        <div class="row">
-          <div class="column">
-            <label for="orderID">ID:</label>
-            <input type="text" name="orderID" value="ORD123012" disabled>
-          </div>
-          <div class="column">
-            <label for="deliveryDate">Date:</label>
-            <input type="date" name="date" id="date" value="2022-01-01" required>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="column">
-            <label for="orderStatus">Status:</label>
-            <select id="orderStatus" name="orderStatus">
-              <option value="pending">Pending</option>
-              <option value="processing">Processing</option>
-              <option value="shipped">Shipped</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-              <option value="returned">Returned</option>
-            </select>
-          </div>
-          <div class="column">
-            <label for="orderTotalPrice">Total Price:</label>
-            <input type="text" name="orderTotalPrice" value="120 $" disabled>
-          </div>
-        </div>
-
-      </div>
-
 
       <div class="row">
         <div class="column">
+          <label for="city">City:</label>
+          <input type="text" id="city" formControlName="city">
+          <span *ngIf="(deliveryGroup.get('city')?.invalid && deliveryGroup.get('city')?.touched) || (isSubmited && deliveryGroup.get('city')?.invalid)" class="error">City is required</span>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="column">
+          <label for="address">Street Address:</label>
+          <input type="text" id="address" formControlName="street">
+          <span *ngIf="(deliveryGroup.get('street')?.invalid && deliveryGroup.get('street')?.touched) || (isSubmited && deliveryGroup.get('street')?.invalid)" class="error">Street address is required</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <label for="unit">Unit:</label>
+          <input type="text" id="unit" formControlName="unit">
+          <span *ngIf="(deliveryGroup.get('unit')?.invalid && deliveryGroup.get('unit')?.touched) || (isSubmited && deliveryGroup.get('unit')?.invalid)" class="error">Unit is required</span>
         </div>
         <div class="column">
-          <button class="btn-submit" id="btn-add-book" (click) = 'openAddBookDialog()' ><i class="fa-solid fa-square-plus"></i> Add Book</button>
+          <label for="postalCode">Postal Code:</label>
+          <input type="text" id="postalCode" formControlName="postalCode">
+          <span *ngIf="(deliveryGroup.get('postalCode')?.invalid && deliveryGroup.get('postalCode')?.touched) || (isSubmited && deliveryGroup.get('postalCode')?.invalid)" class="error">Postal code is required</span>
         </div>
       </div>
-      <div class="books-container">
-        <app-cart-list-item *ngFor="let item of books" [book]="item"></app-cart-list-item>
+
+      <div class="row">
+        <div class="column">
+          <button class="btn-go-back"><i class="fa-solid fa-arrow-left"></i> Go back</button>
+        </div>
+        <div class="column">
+          <button (click)="OnSubmit()" class="btn-submit">Submit</button>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
+
+  <div class="content-section">
+    <h2>Order Details:</h2>
+
+    <form [formGroup]="orderForm" class="order-details">
+      <div class="row">
+        <div class="column">
+          <label for="orderID">ID:</label>
+          <input type="text" id="orderID" name="orderID" value="{{this.mode === 'update' ? this.orderUpsertService.orderUpsertModel.orderDetails.id : ''}}" disabled>
+        </div>
+        <div class="column">
+          <label for="deliveryDate">Date:</label>
+          <input type="date" name="date" id="deliveryDate" formControlName="date">
+          <span *ngIf="(orderForm.get('date')?.invalid && orderForm.get('date')?.touched) || (isSubmited && orderForm.get('date')?.invalid)" class="error">Date is required</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <label for="orderStatus">Status:</label>
+          <select id="orderStatus" name="orderStatus" formControlName="status">
+            <option disabled selected value> -- select an option -- </option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+          <span *ngIf="(orderForm.get('status')?.invalid && orderForm.get('status')?.touched) || (isSubmited && orderForm.get('status')?.invalid)" class="error">Status is required</span>
+        </div>
+        <div class="column">
+          <label for="orderTotalPrice">Total Price:</label>
+          <input type="text" id="orderTotalPrice" name="orderTotalPrice" value="{{this.orderUpsertService.orderUpsertModel.orderDetails.totalPrice.toFixed(2)}} zł" disabled>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="column"></div>
+      <div class="column">
+        <button class="btn-submit" id="btn-add-book" (click)="openAddBookDialog()">
+          <i class="fa-solid fa-square-plus"></i> Add Book
+        </button>
+      </div>
+    </div>
+
+    <div class="books-container">
+      <p style="text-align: center" *ngIf="this.orderUpsertService.orderUpsertModel.orderItems.length < 1">
+        No books in order
+      </p>
+      <app-cart-list-item
+        *ngFor="let item of this.orderUpsertService.orderUpsertModel.orderItems"
+        [book]="item"
+        (minusItem)="OnMinusItem(item)"
+        (plusItem)="OnPlusItem(item)">
+      </app-cart-list-item>
+    </div>
+    <span *ngIf="(isSubmited && this.orderUpsertService.orderUpsertModel.orderItems.length < 1)" class="error">Please pick at least 1 item</span>
+  </div>
+</div>

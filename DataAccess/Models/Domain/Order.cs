@@ -34,7 +34,7 @@ public partial class Order
     public string DeliveryPostalCode { get; set; } = null!;
 
     [Column("totalprice")]
-    public decimal? TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

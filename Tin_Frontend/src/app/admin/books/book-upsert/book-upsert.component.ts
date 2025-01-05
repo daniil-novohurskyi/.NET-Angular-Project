@@ -1,13 +1,13 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component,  OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule,} from '@angular/common';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {
   ShowcaseBookCardComponent
 } from '../../../showcase/showcase-books/showcase-book-card/showcase-book-card.component';
 import {BookUpsertService} from './book-upsert.service';
-import {BookCardModel} from '../../../showcase/showcase-books/showcase-book-card/book-card.model';
 import {BehaviorSubject} from 'rxjs';
+import {ShowcaseBookCardModel} from '../../../models/books/showcase-book-card.model';
 
 @Component({
   selector: 'app-book-upsert',
@@ -16,16 +16,15 @@ import {BehaviorSubject} from 'rxjs';
   imports: [
     ReactiveFormsModule,
     ShowcaseBookCardComponent,
-    CommonModule,
-    RouterLink
+    CommonModule
   ],
   styleUrls: ['./book-upsert.component.css']
 })
 export class BookUpsertComponent implements OnInit{
-  @Input() mode: 'update' | 'create' = 'create';
+  mode: 'update' | 'create' = 'create';
   showComponent = false;
-  @Output() bookCardModel!: BookCardModel;
-  private bookCardModelSubject = new BehaviorSubject<BookCardModel | null>(null);
+  @Output() bookCardModel!: ShowcaseBookCardModel;
+  private bookCardModelSubject = new BehaviorSubject<ShowcaseBookCardModel | null>(null);
   imageUrl$ = this.bookCardModelSubject.asObservable();
 
   bookForm: FormGroup;
@@ -62,9 +61,9 @@ export class BookUpsertComponent implements OnInit{
     }
     if(this.mode === 'update') {
       this.bookCardModel = {
-        id: "",
+        isbn: "",
         title: "",
-        price:null,
+        price:0,
         coverUrl:this.bookUpsertService.bookUpsert.coverUrl,
       }
       this.bookCardModelSubject.next(this.bookCardModel);
@@ -87,9 +86,9 @@ export class BookUpsertComponent implements OnInit{
     }
     const imageUrl = URL.createObjectURL(this.selectedFile!);
     this.bookCardModel = {
-      id: "",
+      isbn: "",
       title: "",
-      price:null,
+      price:0,
       coverUrl: imageUrl,
     }
     this.bookCardModelSubject.next(this.bookCardModel);

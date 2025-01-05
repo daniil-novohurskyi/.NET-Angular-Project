@@ -21,6 +21,12 @@ import {BooksInfoResolverService} from './admin/books/books-info/books-info-reso
 import {BookDetailsResolverService} from './admin/books/book-details/book-details-resolver.service';
 import {UsersInfoResolverService} from './admin/users/users-info/users-info-resolver.service';
 import {UserUpsertResolverService} from './admin/users/user-upsert/user-upsert-resolver.service';
+import {OrdersInfoResolverService} from './admin/orders/orders-info/orders-info-resolver.service';
+import {OrderUpsertResolverService} from './admin/orders/order-upsert/order-upsert-resolver.service';
+import {OrderDetailsResolverService} from './admin/orders/order-details/order-details-resolver.service';
+import {ShowcaseResolverService} from './showcase/showcase-resolver.service';
+import {ShowcaseBookResolverService} from './showcase/showcase-book/showcase-book-resolver.service';
+import {UserEditResolverService} from './user/user-profile/user-edit-resolver.service';
 
 export const routes: Routes = [
   {
@@ -31,11 +37,13 @@ export const routes: Routes = [
   {
     path: 'showcase',
     component: ShowcaseComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    resolve:{showcase:ShowcaseResolverService}
   },
   {
-    path: 'showcase/:showcaseId',
+    path: 'showcase/:id',
     component: ShowcaseBookComponent,
+    resolve:{showcase:ShowcaseBookResolverService}
   },
   {
     path:'login',
@@ -55,12 +63,12 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'profile/:id',
-    component: OrderDetailsComponent,
-  },
-  {
     path: 'profile/edit',
     component:UserEditComponent
+  },
+  {
+    path: 'profile/:id',
+    component: OrderDetailsComponent,
   },
   {
     path: 'admin/users',
@@ -73,7 +81,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/users/:id',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    resolve:{userProfile:UserEditResolverService}
   },
   {
     path: 'admin/users/:id/edit',
@@ -103,7 +112,8 @@ export const routes: Routes = [
   },
   {
     path: 'admin/orders',
-    component:OrdersInfoComponent
+    component:OrdersInfoComponent,
+    resolve:{ordersInfo:OrdersInfoResolverService}
   },
   {
     path: 'admin/orders/new',
@@ -111,11 +121,13 @@ export const routes: Routes = [
   },
   {
     path: 'admin/orders/:id',
-    component:OrderDetailsComponent
+    component:OrderDetailsComponent,
+    resolve:{orderDetails:OrderDetailsResolverService}
   },
   {
     path: 'admin/orders/:id/edit',
-    component:OrderUpsertComponent
+    component:OrderUpsertComponent,
+    resolve:{orderUpsert:OrderUpsertResolverService}
   },
   {
     path:'error',

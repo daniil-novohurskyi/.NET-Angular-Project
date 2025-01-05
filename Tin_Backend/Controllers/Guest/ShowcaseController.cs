@@ -20,7 +20,11 @@ public class ShowcaseController:ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetPaginatedBooksAsync([FromQuery] int pageNum)
     {
-        var response = await _unitOfWork.BookRepository.GetPaginatedShowcaseBooksAsync(pageNum, Offset);
+        var response = await _unitOfWork.BookRepository.GetPaginatedShowcaseBooksAsync(pageNum, 6);
+        foreach (ShowcaseItemBooksResponse showcaseItemBooksResponse in response.Books)
+        {
+            showcaseItemBooksResponse.CoverUrl = GenerateImageUrl(showcaseItemBooksResponse.CoverUrl);
+        }
         return Ok(response);
     }
 
@@ -45,10 +49,16 @@ public class ShowcaseController:ControllerBase
             Genre = book.Genre.Name,
             Price = book.Price,
             PublishingYear = book.PublishingYear,
+            Description = book.Description,
             Title = book.Title,
-            CoverUrl = book.Cover
+            CoverUrl = GenerateImageUrl(book.Cover) 
         };
         return Ok(response);
     }
     
+    private string GenerateImageUrl(string imageFileName)
+    {
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
+        return $"{baseUrl}/images/{imageFileName}";
+    }
 }

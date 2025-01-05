@@ -12,15 +12,25 @@
         </button>
       </div>
       <div class="books-container">
-        <app-cart-list-item *ngFor="let item of books" [book]="item"></app-cart-list-item>
+        <app-cart-list-item
+          *ngFor="let item of this.addBookService.paginatedOrderItems.orderItems" [book] ="item"
+          (minusItem)="OnRemove(item)"
+          (plusItem)="OnAdd(item)"
+        ></app-cart-list-item>
       </div>
-      <app-pagination></app-pagination>
+      <app-pagination
+        [currentPage]="this.addBookService.paginatedOrderItems.pageNumber"
+        [totalPages]="this.addBookService.paginatedOrderItems.totalPages"
+        [totalItems]="this.addBookService.paginatedOrderItems.totalCount"
+        [pageSize]="this.addBookService.paginatedOrderItems.pageSize"
+        (pageChanged)="onPageChanged($event)">
+        ></app-pagination>
       <div class="row modal">
         <div class="column">
           <button class="btn-modal-cancel" (click)="closeDialog()">Cancel</button>
         </div>
         <div class="column">
-          <button class="btn-submit">Submit</button>
+          <button (click)="OnSubmit()" class="btn-submit">Submit</button>
         </div>
       </div>
     </div>

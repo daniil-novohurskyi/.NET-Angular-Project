@@ -37,7 +37,7 @@ public class ProfileController:ControllerBase
             TotalPrice = order.TotalPrice
         }).ToList();
 
-        var response = new UserDetailsResponse()
+        var userInfo = new UserProfileDTO()
         {
             Name = usersWithIncludes.Name,
             Email = usersWithIncludes.Email,
@@ -47,6 +47,10 @@ public class ProfileController:ControllerBase
             Street = usersWithIncludes.Street,
             Unit = usersWithIncludes.Unit,
             PostalCode = usersWithIncludes.PostalCode,
+        };
+        var response = new UserDetailsResponse()
+        {
+            UserInfo = userInfo,
             Orders = ordersDto
         };
         return Ok(response);

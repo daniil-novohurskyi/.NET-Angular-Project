@@ -3,7 +3,13 @@
       <h1>Available books</h1>
     </header>
     <div class="book-list">
-      <app-showcase-book-card *ngFor="let card of bookCards" [bookCard]="card"></app-showcase-book-card>
+      <app-showcase-book-card *ngFor="let card of this.showcaseService.showcaseModel.books" [bookCard]="card"></app-showcase-book-card>
     </div>
   </div>
-  <app-pagination></app-pagination>
+<app-pagination
+  [currentPage]="this.showcaseService.showcaseModel.pageNumber"
+  [totalPages]="this.showcaseService.showcaseModel.totalPages"
+  [totalItems]="this.showcaseService.showcaseModel.totalCount"
+  [pageSize]="this.showcaseService.showcaseModel.pageSize"
+  (pageChanged)="onPageChanged($event)">
+  ></app-pagination>

@@ -1,17 +1,21 @@
 import { Component } from '@angular/core';
-import {faCoffee} from '@fortawesome/free-solid-svg-icons';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { CartService } from '../../cart-order/cart.service';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [
-    RouterLink
-  ],
+  imports: [RouterLink],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css'
+  styleUrls: ['./navigation.component.css'], // Исправлено название свойства styleUrls
 })
 export class NavigationComponent {
+  cartItemCount: number = 0;
 
-  protected readonly faCoffee = faCoffee;
+  constructor(protected cartService: CartService) {
+    // Подписка на изменения корзины
+    this.cartService.cart$.subscribe((items) => {
+      this.cartItemCount = items.reduce((total, item) => total + item.quantity, 0);
+    });
+  }
 }

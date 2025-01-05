@@ -9,6 +9,6 @@
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
-  <app-client-list></app-client-list>
+  <app-client-list [clients]="this.addClientService.usersInfo.users"></app-client-list>
   <app-pagination></app-pagination>
 </div>

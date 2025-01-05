@@ -13,4 +13,5 @@ public class OrderUpsertRequest
     public DateOnly Date { get; set; }
 
     public ICollection<OrderItemUpsertDTO> OrderItems { get; set; } = null!;
+    public decimal TotalPrice { get; set; }
 }

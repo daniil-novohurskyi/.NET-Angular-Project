@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ClientItemComponent} from './client-item/client-item.component';
 import {ClientModel} from './client-item/client-item.model';
 import {NgForOf} from '@angular/common';
+import {AddClientService} from '../add-client.service';
+import {MatDialogRef} from '@angular/material/dialog';
+import {OrderUpsertAddClientDialogComponent} from '../order-upsert-add-client-dialog.component';
 
 @Component({
   selector: 'app-client-list',
@@ -14,33 +17,15 @@ import {NgForOf} from '@angular/common';
   styleUrl: './client-list.component.css'
 })
 export class ClientListComponent {
-  clients: ClientModel[] = [
-    {
-      email: "john.doe@example.com",
-      name: "John Doe",
-      phone: "+123-456-789",
-    },
-    {
-      email: "john.doe@example.com",
-      name: "John Doe",
-      phone: "+123-456-789",
-    },
-    {
-      email: "john.doe@example.com",
-      name: "John Doe",
-      phone: "+123-456-789",
-    },
-    {
-      email: "john.doe@example.com",
-      name: "John Doe",
-      phone: "+123-456-789",
-    },
-    {
-      email: "john.doe@example.com",
-      name: "John Doe",
-      phone: "+123-456-789",
-    },
-  ];
+  @Input() clients?: ClientModel[];
 
+  constructor(public addClientService: AddClientService,private matDialogRef: MatDialogRef<OrderUpsertAddClientDialogComponent>) {
+  }
+
+  pickClient(clientModel:ClientModel) {
+    this.addClientService.setPickedCustomer(clientModel);
+    this.matDialogRef.close();
+
+  }
 
 }

@@ -1,10 +1,10 @@
-  <img src="{{this.orderItem.imageSrc}}" alt="Book 1">
+  <img src="{{this.orderItem?.coverUrl}}" alt="Book 1">
   <div class="order-list-item-details">
-    <p class="order-list-item-title">{{ this.orderItem.title }}</p>
-    <p class="order-list-item-isbn">{{ this.orderItem.isbn }}</p>
-    <p class="order-list-item-quantity">{{this.orderItem.quantity}} x {{this.orderItem.price}} zł</p>
+    <p class="order-list-item-title">{{ this.orderItem?.title }}</p>
+    <p class="order-list-item-isbn">{{ this.orderItem?.isbn }}</p>
+    <p class="order-list-item-quantity">{{this.orderItem?.quantity}} x {{this.orderItem?.pricePerUnit}} zł</p>
 
   </div>
   <div class="order-list-item-price">
-    <p>{{(this.orderItem.quantity * this.orderItem.price).toFixed(2)}} zł</p>
+    <p>{{(this.orderItem.price).toFixed(2)}} zł</p>
   </div>

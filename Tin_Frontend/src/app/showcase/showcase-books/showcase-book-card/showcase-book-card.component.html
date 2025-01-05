@@ -1,6 +1,6 @@
-<a class="book-card" [routerLink]="[this.bookCard.id]">
+<a class="book-card" [routerLink]="[this.bookCard.isbn]">
   <img src="{{this.bookCard.coverUrl}}"
        alt="No cover">
-  <h3 *ngIf="bookCard.price != null" class="book-card-title">{{this.bookCard.title}}</h3>
-  <p *ngIf="bookCard.price != null" class="book-card-price">{{ this.bookCard.price }} zł</p>
+  <h3 *ngIf="bookCard.price != 0" class="book-card-title">{{this.bookCard.title}}</h3>
+  <p *ngIf="bookCard.price != 0" class="book-card-price">{{ this.bookCard.price }} zł</p>
 </a>

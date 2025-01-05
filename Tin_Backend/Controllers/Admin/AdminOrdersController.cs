@@ -13,6 +13,7 @@ namespace Tin_Backend.Controllers.Admin;
 public class AdminOrdersController:ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
+    private const int Offset = 10;
 
     public AdminOrdersController(IUnitOfWork unitOfWork)
     {
@@ -38,6 +39,14 @@ public class AdminOrdersController:ControllerBase
     }
 
     [HttpGet]
+    [Route("paginated")]
+    public async Task<IActionResult> GetPaginatedOrdersAsync([FromQuery] int pageNum)
+    {
+        var response = await _unitOfWork.OrderRepository.GetPaginatedAdminOrdersAsync(pageNum, Offset);
+        return Ok(response);
+    }
+
+    [HttpGet]
     [Route("{id}/details")]
     public async Task<IActionResult> GetByIdDetails(string id)
     {
@@ -52,6 +61,7 @@ public class AdminOrdersController:ControllerBase
 
         var clientInfo = new ClientDTO()
         {
+            Id = orderWithDetails.UserId,
             Name = orderWithDetails!.User.Name,
             Email = orderWithDetails.User.Email
         };
@@ -79,7 +89,7 @@ public class AdminOrdersController:ControllerBase
             {
                 Id = orderItem.Id,
                 Title = orderItem.BookIsbnNavigation.Title,
-                CoverUrl = orderItem.BookIsbnNavigation.Cover,
+                CoverUrl = GenerateImageUrl(orderItem.BookIsbnNavigation.Cover),
                 Isbn = orderItem.BookIsbn,
                 Quantity = orderItem.Quantity,
                 Price = orderItem.Priceperunit * orderItem.Quantity,
@@ -113,6 +123,7 @@ public class AdminOrdersController:ControllerBase
 
         var clientInfo = new ClientDTO()
         {
+            Id = orderWithDetails.UserId,
             Name = orderWithDetails!.User.Name,
             Email = orderWithDetails.User.Email
         };
@@ -140,7 +151,7 @@ public class AdminOrdersController:ControllerBase
             {
                 Id = orderItem.Id,
                 Title = orderItem.BookIsbnNavigation.Title,
-                CoverUrl = orderItem.BookIsbnNavigation.Cover,
+                CoverUrl = GenerateImageUrl(orderItem.BookIsbnNavigation.Cover),
                 Isbn = orderItem.BookIsbn,
                 Quantity = orderItem.Quantity,
                 Price = orderItem.Priceperunit * orderItem.Quantity,
@@ -186,6 +197,7 @@ public class AdminOrdersController:ControllerBase
         orderUpdating.DeliveryUnit = deliveryInfo.Unit;
         orderUpdating.DeliveryPostalCode = deliveryInfo.PostalCode;
         orderUpdating.Date = request.Date;
+        orderUpdating.TotalPrice = request.TotalPrice;
 
         var orderItemsDtoUpdating = request.OrderItems;
         //find removed orderItems
@@ -257,6 +269,7 @@ public class AdminOrdersController:ControllerBase
             DeliveryStreet = deliveryInfo.Street,
             DeliveryUnit = deliveryInfo.Unit,
             DeliveryPostalCode = deliveryInfo.PostalCode,
+            TotalPrice = request.TotalPrice,
             Date = request.Date
         };
         await _unitOfWork.OrderRepository.AddAsync(order);
@@ -308,6 +321,12 @@ public class AdminOrdersController:ControllerBase
         await _unitOfWork.CommitTransactionAsync();
         
         return NoContent();
+    }
+    
+    private string GenerateImageUrl(string imageFileName)
+    {
+        var baseUrl = $"{Request.Scheme}://{Request.Host}";
+        return $"{baseUrl}/images/{imageFileName}";
     }
     
 }

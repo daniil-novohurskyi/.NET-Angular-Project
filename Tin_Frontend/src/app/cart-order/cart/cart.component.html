@@ -1,14 +1,19 @@
 <div class="container">
   <div class="container-header">
     <span><i class="fa fa-shopping-cart left-item"></i> Shopping Cart</span>
-    <button class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
+    <button [routerLink]="['/showcase']" class="btn redirect-back"><i class="fa-solid fa-xmark"></i></button>
   </div>
   <div class="content">
     <div class="books-container">
-      <app-cart-list-item *ngFor="let bookItem of books" [book]="bookItem"></app-cart-list-item>
+      <p style="text-align: center" *ngIf="cartService.getCartItems().length == 0">No items in cart.</p>
+      <app-cart-list-item
+        *ngFor="let bookItem of this.cartService.getCartItems()" [book]="bookItem"
+      (minusItem)="OnMinusItem(bookItem)"
+      (plusItem)="OnPlusItem(bookItem)">
+      </app-cart-list-item>
     </div>
     <div class="cart-total">
-      <button class="btn continue-shopping" (click)="OnContinueShopping()">
+      <button [routerLink]="['../showcase']" class="btn continue-shopping" (click)="OnContinueShopping()">
         <i class="fa fa-backward" aria-hidden="true"></i> continue shopping
       </button>
       <div class="cart-total-price-container">

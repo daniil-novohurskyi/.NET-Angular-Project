@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {CartListItemModel} from './cart-list-item.model';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {OrderItemModel} from '../../../models/order-item/order-item.model';
 
 @Component({
   selector: 'app-cart-list-item',
@@ -9,6 +9,24 @@ import {CartListItemModel} from './cart-list-item.model';
   styleUrl: './cart-list-item.component.css'
 })
 export class CartListItemComponent {
-  @Input() public book!:CartListItemModel;
+  @Input() public book!:OrderItemModel;
+  @Output() minusItem = new EventEmitter<OrderItemModel>();
+  @Output() plusItem = new EventEmitter<OrderItemModel>();
+  @Output() changeItem = new EventEmitter<OrderItemModel>();
 
+
+
+  OnMinus() {
+    this.minusItem.emit(this.book); // Notify the parent
+
+  }
+
+  OnPlus() {
+    this.plusItem.emit(this.book);
+  }
+
+  // OnChange(num:number) {
+  //   this.book.quantity += num;
+  //   this.changeItem.emit(this.book);
+  // }
 }

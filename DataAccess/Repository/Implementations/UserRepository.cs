@@ -40,6 +40,15 @@ namespace DataAccess.Repository.Implementations
 
             // Calculate the total number of pages
             var totalPages = (int)Math.Ceiling(totalCount / (double)offset);
+            if (totalPages == 0)
+                return new PaginatedAdminUsersResponse()
+                {
+                    Users = new List<AdminItemUsersResponse>(),
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    PageNumber =  pageNum > totalPages? totalPages: pageNum,
+                    PageSize = offset
+                };
             
             pageNum = pageNum > totalPages ? totalPages : pageNum;
 

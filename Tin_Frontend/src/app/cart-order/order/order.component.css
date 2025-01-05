@@ -39,8 +39,9 @@
 }
 
 .books-container {
-  max-width: max-content;
+  width: 100%;
   max-height: 430px;
+  box-sizing: border-box;
   margin: 0 0 1rem;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -91,6 +92,7 @@ form label {
 
 .order-total-price-container p {
   margin: 0;
+  white-space: nowrap;
 }
 
 .btn-submit {

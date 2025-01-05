@@ -1,9 +1,10 @@
   <h1>Client Information</h1>
-  <p><strong>Name:</strong> John Doe</p>
-  <p><strong>Email:</strong> john.doe&#64;example.com</p>
-  <p><strong>Phone:</strong> +1 234 567 890</p>
-  <p><strong>City:</strong> San Francisco</p>
-  <p><strong>Address:</strong> 123 Main St, Springfield</p>
-  <p><strong>Unit:</strong> 20</p>
-  <p><strong>Postal code:</strong> 02-543</p>
+  <p><strong>Name:</strong> {{ this.userProfileInfo.name }}</p>
+  <p><strong>Email:</strong> {{ this.userProfileInfo.email }}</p>
+  <p><strong>Role:</strong> {{this.userProfileInfo.role}}</p>
+  <p><strong>Phone:</strong> {{ this.userProfileInfo.phone }}</p>
+  <p><strong>City:</strong> {{ this.userProfileInfo.city }}</p>
+  <p><strong>Address:</strong> {{ this.userProfileInfo.street }}</p>
+  <p><strong>Unit:</strong> {{ this.userProfileInfo.unit }}</p>
+  <p><strong>Postal code:</strong> {{ this.userProfileInfo.postalCode }}</p>
   <button class="edit-button" (click)="OnEdit()"> Edit Information</button>

@@ -1,5 +1,5 @@
 .container {
-  width: max-content;
+  width: 50%;
   margin: 2rem auto;
   border: 1px solid #b9b8b8;
   border-radius: 15px;
@@ -25,12 +25,14 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .books-container {
   width: 100%;
   /*max-width:max-content;*/
   margin: 0;
+  box-sizing: border-box;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 5px;

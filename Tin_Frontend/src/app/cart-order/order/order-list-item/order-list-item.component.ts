@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {OrderListItemModel} from './order-list-item.model';
+import {OrderItemModel} from '../../../models/order-item/order-item.model';
 
 @Component({
   selector: 'app-order-list-item',
@@ -9,6 +9,6 @@ import {OrderListItemModel} from './order-list-item.model';
   styleUrl: './order-list-item.component.css'
 })
 export class OrderListItemComponent {
-  @Input() orderItem!: OrderListItemModel;
+  @Input() orderItem!:  OrderItemModel;
   protected readonly parseFloat = parseFloat;
 }

@@ -1,4 +1,4 @@
-export interface OrderItemModel{
+export interface OrderInfoModel {
   id:string,
   date:string,
   totalPrice:number,

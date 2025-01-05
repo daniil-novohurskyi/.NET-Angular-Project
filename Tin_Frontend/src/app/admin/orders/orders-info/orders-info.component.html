@@ -1,171 +1,43 @@
 <div class="table-header">
   <h1>Orders</h1>
-  <button class="btn-submit"><i class="fa-solid fa-plus"></i> New Order</button>
+  <button [routerLink] = "['new']" class="btn-submit"><i class="fa-solid fa-plus"></i> New Order</button>
 </div>
 <table>
   <thead>
   <tr>
-    <th>Client Name</th>
-    <th>Order ID</th>
+    <th>Client</th>
+    <th>ID</th>
     <th>Order Date</th>
-    <th>Total Amount</th>
-    <th>Order Status</th>
+    <th>Total</th>
+    <th>Status</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>John Doe</td>
-    <td>ORD001</td>
-    <td>2024-11-01</td>
-    <td>$150</td>
-    <td>Pending</td>
+  <tr *ngFor="let order of this.ordersInfoService.ordersInfoModel.orders">
+    <td>{{order.clientName}}</td>
+    <td>{{ order.id }}</td>
+    <td> {{order.date}}</td>
+    <td>{{ order.totalPrice }} zł</td>
+    <td>{{ order.status }}</td>
     <td>
       <div class="actions">
-        <button class="details-button" title="Details"><i
+        <button [routerLink]="[order.id]" class="details-button" title="Details"><i
           class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Jane Smith</td>
-    <td>ORD002</td>
-    <td>2024-11-02</td>
-    <td>$200</td>
-    <td>Processing</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Emily Johnson</td>
-    <td>ORD003</td>
-    <td>2024-11-03</td>
-    <td>$120</td>
-    <td>Shipped</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Michael Brown</td>
-    <td>ORD004</td>
-    <td>2024-11-04</td>
-    <td>$250</td>
-    <td>Delivered</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Sarah Davis</td>
-    <td>ORD005</td>
-    <td>2024-11-05</td>
-    <td>$175</td>
-    <td>Cancelled</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>David Wilson</td>
-    <td>ORD006</td>
-    <td>2024-11-06</td>
-    <td>$300</td>
-    <td>Returned</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Laura Miller</td>
-    <td>ORD007</td>
-    <td>2024-11-07</td>
-    <td>$220</td>
-    <td>Pending</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Chris Taylor</td>
-    <td>ORD008</td>
-    <td>2024-11-08</td>
-    <td>$190</td>
-    <td>Processing</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Amy Martinez</td>
-    <td>ORD009</td>
-    <td>2024-11-09</td>
-    <td>$140</td>
-    <td>Delivered</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>Brian Anderson</td>
-    <td>ORD010</td>
-    <td>2024-11-10</td>
-    <td>$400</td>
-    <td>Shipped</td>
-    <td>
-      <div class="actions">
-        <button class="details-button" title="Details"><i
-          class="fa-solid fa-circle-info"></i></button>
-        <button class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
+        <button [routerLink]="[order.id,'edit']" class="edit-button" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+        <button  (click)="OnDelete(order.id)" class="delete-button" title="Delete"><i class="fa-solid fa-trash"></i></button>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
-<app-pagination></app-pagination>
 
+<p style="text-align: center; font-size: 2rem" *ngIf="ordersInfoService.ordersInfoModel.orders.length <1">No orders</p>
+<app-pagination
+  [currentPage]="ordersInfoService.ordersInfoModel.pageNumber"
+  [totalPages]="ordersInfoService.ordersInfoModel.totalPages"
+  [totalItems]="ordersInfoService.ordersInfoModel.totalCount"
+  [pageSize]="ordersInfoService.ordersInfoModel.pageSize"
+  (pageChanged)="onPageChanged($event)">
+  ></app-pagination>
 

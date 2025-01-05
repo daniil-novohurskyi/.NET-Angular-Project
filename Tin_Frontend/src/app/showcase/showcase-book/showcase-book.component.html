@@ -1,23 +1,23 @@
 <main class="transparent-container">
   <div class="book-details-horizontal">
     <div class="book-image">
-      <img src="/public/images/books_titles/soul_olivia_wilson.jpg" alt="Book Cover">
+      <img src="{{this.showcaseBookService.showcaseBook.coverUrl}}" alt="Book Cover">
     </div>
     <div class="book-info">
-      <p class="book-title"><strong>SOUL</strong></p>
-      <p class="book-author"><strong>Author: </strong>Olivia Wilson</p>
+      <p class="book-title"><strong>{{this.showcaseBookService.showcaseBook.title}}</strong></p>
+      <p class="book-author"><strong>Author: </strong>{{this.showcaseBookService.showcaseBook.author}}</p>
       <p class="book-description">
-        The life that Kim and Krickitt Carpenter knew changed completely on November 24, 1993, two months after their wedding, when the back of their car was struck by a speeding pickup truck. A serious head injury left Krickitt in a coma for several weeks. When she finally woke up, part of her memory was impaired and she could not remember her husband. She had no idea who he was. Essentially, the "Krickitt" that Kim had married had died in the accident, and now he needed to win back the woman he loved.
+        {{this.showcaseBookService.showcaseBook.description}}
       </p>
       <div class="book-meta">
-        <p><strong>Genre:</strong> Drama</p>
-        <p><strong>Publish year:</strong> 2020</p>
+        <p><strong>Genre:</strong> {{this.showcaseBookService.showcaseBook.genre}}</p>
+        <p><strong>Publish year:</strong> {{this.showcaseBookService.showcaseBook.publishingYear}}</p>
       </div>
       <div class="buttons">
         <button class="btn-buy" (click)="OnAddToCart()" >Add to cart</button>
         <button class="btn-go-back" (click)="OnGoBackToList()">Back to list</button>
         <div class="book-price">
-        <p><strong>Price: </strong> 20 zł</p>
+        <p><strong>Price: </strong> {{this.showcaseBookService.showcaseBook.price}} zł</p>
         </div>
       </div>
     </div>

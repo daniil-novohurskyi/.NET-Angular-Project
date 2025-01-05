@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BookCardModel} from './book-card.model';
 import {RouterLink} from '@angular/router';
 import {NgIf} from '@angular/common';
 import {FileService} from '../../../admin/books/book-upsert/file.service';
 import {Subscription} from 'rxjs';
+import {ShowcaseBookCardModel} from '../../../models/books/showcase-book-card.model';
 
 @Component({
   selector: 'app-showcase-book-card',
@@ -16,7 +16,7 @@ import {Subscription} from 'rxjs';
   styleUrl: './showcase-book-card.component.css'
 })
 export class ShowcaseBookCardComponent  implements OnInit {
-  @Input() public bookCard!: BookCardModel;
+  @Input() public bookCard!: ShowcaseBookCardModel;
   @Input() public isUpsert!: boolean;
   private fileSubscription!: Subscription;
 

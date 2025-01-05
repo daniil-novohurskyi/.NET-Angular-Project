@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, ReactiveFormsModule, ValidatorFn} from '@angular/forms';
 import {NgClass, NgIf} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,7 +16,7 @@ import {UserUpsertService} from './user-upsert.service';
   standalone: true
 })
 export class UserUpsertComponent implements OnInit {
-  @Input() mode: 'update' | 'create' = 'create';
+  mode: 'update' | 'create' = 'create';
   showComponent = false;
   personalInfoForm: FormGroup;
   accountForm: FormGroup;
@@ -48,7 +48,6 @@ export class UserUpsertComponent implements OnInit {
     if(this.mode === 'update') {
       this.route.data.subscribe(data => {
         this.userUpsertService.userUpsert = data['userUpsert'];
-        console.log(this.userUpsertService.userUpsert);
       });
       //if not this timeout Add book and header icon will not render -_-
     } else{

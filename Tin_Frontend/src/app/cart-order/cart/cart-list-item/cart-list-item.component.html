@@ -1,13 +1,13 @@
-  <img src="{{this.book.imageSrc}}" alt="Book 1">
+  <img src="{{this.book.coverUrl}}" alt="Book 1">
   <div class="books-list-item-details">
     <p class="books-list-item-title">{{this.book.title}}</p>
-    <p class="books-list-item-isbn">{{this.book.isbn}} </p>
-    <p class="books-list-item-quantity">{{this.book.price}} zł</p>
+    <p class="books-list-item-isbn">({{this.book.isbn}}) </p>
+    <p class="books-list-item-quantity">{{this.book.pricePerUnit}} zł</p>
 
   </div>
   <div class="books-list-item-controls">
-    <button>-</button>
+    <button [disabled]="this.book.quantity == 0" (click)="OnMinus()">-</button>
     <span>{{this.book.quantity}}</span>
-    <button>+</button>
-    <p>38.75 zł</p>
+    <button (click)="OnPlus()" >+</button>
+    <p>{{ this.book.quantity * this.book.pricePerUnit }} zł</p>
   </div>
